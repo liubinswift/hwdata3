@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="app_preset_prof_preset_name">GJTRunplan Launch Configuration</entry>
+<entry key="app_preset_prof_preset_filter_s"/>
+<entry key="app_preset_prof_preset_filter_p">com.viewscenes.axis.asr.*,
+com.viewscenes.axis.util.*,
+com.viewscenes.bean.*,
+com.viewscenes.dao.*,
+com.viewscenes.fileUpload.*,
+com.viewscenes.printexcel.*,
+com.viewscenes.pub.*,
+com.viewscenes.service.*,
+com.viewscenes.sys.*,
+com.viewscenes.task.*,
+com.viewscenes.timeTask.*,
+com.viewscenes.util.*,
+com.viewscenes.web.Daoutil.*,
+com.viewscenes.web.common.*,
+com.viewscenes.web.dataquery.alarminput.*,
+com.viewscenes.web.dataquery.audioquery.*,
+com.viewscenes.web.dataquery.datainput.*,
+com.viewscenes.web.dataquery.disturb.*,
+com.viewscenes.web.dataquery.originalEffect.*,
+com.viewscenes.web.devicemgr.equinstall.*,
+com.viewscenes.web.devicemgr.equmaintain.*,
+com.viewscenes.web.devicemgr.faultreport.*,
+com.viewscenes.web.dicManager.*,
+com.viewscenes.web.freqtimetab.*,
+com.viewscenes.web.importDataManager.*,
+com.viewscenes.web.log.*,
+com.viewscenes.web.runplanManager.gjtRunplan.*,
+com.viewscenes.web.runplanManager.hwRunplan.*,
+com.viewscenes.web.runplanManager.splitRunplan.*,
+com.viewscenes.web.runplanManager.wgtRunplan.*,
+com.viewscenes.web.runplanStatistics.*,
+com.viewscenes.web.statistics.*,
+com.viewscenes.web.sysmgr.dicManager.*,
+com.viewscenes.web.sysmgr.user.*,
+org.jmask.web.controller.*,
+org.jmask.web.exception.*,
+org.jmask.web.util.*</entry>
+<entry key="app_preset_prof_preset_alloc_p">10</entry>
+<entry key="app_preset_"/>
+<entry key="app_preset_prof_preset_samplingRefreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_stacks_p">false</entry>
+<entry key="app_preset_prof_preset_roots_p">com.viewscenes.axis.asr.**
+com.viewscenes.axis.util.**
+com.viewscenes.bean.**
+com.viewscenes.dao.**
+com.viewscenes.fileUpload.**
+com.viewscenes.printexcel.**
+com.viewscenes.pub.**
+com.viewscenes.service.**
+com.viewscenes.sys.**
+com.viewscenes.task.**
+com.viewscenes.timeTask.**
+com.viewscenes.util.**
+com.viewscenes.web.Daoutil.**
+com.viewscenes.web.common.**
+com.viewscenes.web.dataquery.alarminput.**
+com.viewscenes.web.dataquery.audioquery.**
+com.viewscenes.web.dataquery.datainput.**
+com.viewscenes.web.dataquery.disturb.**
+com.viewscenes.web.dataquery.originalEffect.**
+com.viewscenes.web.devicemgr.equinstall.**
+com.viewscenes.web.devicemgr.equmaintain.**
+com.viewscenes.web.devicemgr.faultreport.**
+com.viewscenes.web.dicManager.**
+com.viewscenes.web.freqtimetab.**
+com.viewscenes.web.importDataManager.**
+com.viewscenes.web.log.**
+com.viewscenes.web.runplanManager.gjtRunplan.**
+com.viewscenes.web.runplanManager.hwRunplan.**
+com.viewscenes.web.runplanManager.splitRunplan.**
+com.viewscenes.web.runplanManager.wgtRunplan.**
+com.viewscenes.web.runplanStatistics.**
+com.viewscenes.web.statistics.**
+com.viewscenes.web.sysmgr.dicManager.**
+com.viewscenes.web.sysmgr.user.**
+org.jmask.web.controller.**
+org.jmask.web.exception.**
+org.jmask.web.util.**
+</entry>
+<entry key="profiler.settings.instrument.empty.methods">false</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">false</entry>
+<entry key="app_preset_prof_preset_samplingRate_s">100</entry>
+<entry key="app_preset_prof_preset_filterMode_s">true</entry>
+<entry key="app_preset_prof_preset_selector"/>
+<entry key="app_preset_prof_preset_refreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_runnables_p">true</entry>
+<entry key="app_preset_prof_preset_filterMode_p">false</entry>
+<entry key="app_preset_prof_preset_memoryMode_p">true</entry>
+</properties>

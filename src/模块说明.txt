@@ -1,0 +1,6 @@
+1.报表工具类使用说明
+    com.viewscenes.web.Daoutil.ReportUtil
+    使用方法进入报表中的方法中。
+
+2.每天定时日报计算工具说明
+   com.viewscenes.timeTask.AlarmClock中soundAlarm方法中加入自己的实际计算方法即刻。    

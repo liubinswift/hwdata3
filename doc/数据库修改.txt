@@ -1,0 +1,14 @@
+ALTER TABLE HWDATA.RES_TRANSMIT_STATION_TAB
+ADD (broadcast_direction VARCHAR2(50));
+
+COMMENT ON COLUMN 
+HWDATA.RES_TRANSMIT_STATION_TAB.broadcast_direction IS 
+'播向区';
+
+
+ALTER TABLE HWDATA.zdic_language_TAB
+ADD (broadcast_direction VARCHAR2(50));
+
+COMMENT ON COLUMN 
+HWDATA.zdic_language_TAB.broadcast_direction IS 
+'播向区';

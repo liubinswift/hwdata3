@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="GB2312"?>
+<Appconfig>	
+	<DBPoolConfig>
+		<!-- DBPool name="pooldb" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@192.168.15.6:1521:orahw" user="hwdatatest" password="hwdatatest" minconnection="2" maxconnection="5" log="false" ischecked="0"/-->
+		<DBPool name="pooldb" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@10.0.1.16:1521:hw" user="hw" password="u3nfltd2" minconnection="2" maxconnection="5" log="false" ischecked="0"/>
+		<DefaultDBPool name="pooldb"/> 
+	</DBPoolConfig>
+	<!--缓存表配置  -->
+	<tablecachconfig>
+		<!--城市-->
+	    <para table="res_city_tab" sql="select * from res_city_tab where 1=1 order by city asc" key="id" />
+	    <!--前端站点-->
+		<para table="res_headend_tab" sql="select * from res_headend_tab t where is_delete=0 order by t.code" key="code" />
+		<!--大洲-->
+		<para table="dic_state_tab" sql="select * from dic_state_tab t order by t.state_name asc" key="state" />
+		
+		<!--发射台 由于一个发射台在表中有重复，目前只取出发射台的名称 -->
+		<para table="res_transmit_station_tab" sql="select * from res_transmit_station_tab t where t.is_delete=0 order by name asc " key="station_id" />
+		
+		<!--语言-->
+		<para table="zdic_language_tab" sql="select * from zdic_language_tab t order by language_name asc" key="language_id" />
+		<!--服务区-->
+		<para table="dic_servicesarea_tab" sql="select * from dic_servicesarea_tab t order by chinese_name asc" key="id" />
+		
+	</tablecachconfig>
+	<!--短信平台配置 startup(启动状态)：启动：1，关闭：0；port(短信设备端口)；baudrate(短信设备波特率);threadSleepTime:轮询间隔时间，单位秒-->
+	<SMSConfig startup="0" port="1" baudrate="9600" threadSleepTime="10"/>
+	<!-- 用来替换外网导入的音频文件播放地址. -->
+	<HttpIp>
+	  <ip value="192.168.3.123"/>
+	</HttpIp>	
+	<!-- 用来监测系统运行状态. -->
+	<NetCheck>
+	    <para label="Web服务器集群" ip="127.0.0.1" key="id" />
+		<para label="存储服务器集群" ip="127.0.0.1" key="id" />
+		<para label="防病毒服务器" ip="127.0.0.1" key="id" />
+		<para label="防火墙" ip="127.0.0.1" key="id" />
+		<para label="工作站1" ip="127.0.0.1" key="id" />
+		<para label="工作站2" ip="127.0.0.1" key="id" />
+		<para label="数据交换服务器" ip="127.0.0.1" key="id" />
+		<para label="数据库服务器集群" ip="127.0.0.1" key="id" />
+		<para label="业务网交换机" ip="127.0.0.1" key="id" />
+		<para label="应用服务器集群" ip="127.0.0.1" key="id" />
+		
+	</NetCheck>
+</Appconfig>

@@ -1,0 +1,539 @@
+--2013-02-22
+-- Add/modify columns 
+alter table ZRST_REP_EFFECT_STATISTICS_TAB add All_listens VARCHAR2(4000);
+-- Add comments to the columns 
+comment on column ZRST_REP_EFFECT_STATISTICS_TAB.All_listens
+  is '地区或大洲_>=3分_总次数_可听率% ';
+  
+ --======================================================================================
+ --2013-03-15
+ -- Create table
+create table ZRST_REP_FREQ_STATISTICS_TAB
+(
+  DATA_ID          NUMBER,
+  REPORT_ID        NUMBER,
+  RECEIVE_NAME     VARCHAR2(20),
+  TRANSMIT_STATION VARCHAR2(30),
+  LANGUAGE_NAME    VARCHAR2(20),
+  PLAY_TIME        VARCHAR2(11),
+  FREQ_LISTENS     VARCHAR2(40),
+  SUB_REPORT_TYPE  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column ZRST_REP_FREQ_STATISTICS_TAB.REPORT_ID
+  is '报表ID';
+comment on column ZRST_REP_FREQ_STATISTICS_TAB.RECEIVE_NAME
+  is '遥控站';
+comment on column ZRST_REP_FREQ_STATISTICS_TAB.TRANSMIT_STATION
+  is '发射台';
+comment on column ZRST_REP_FREQ_STATISTICS_TAB.LANGUAGE_NAME
+  is '语言';
+comment on column ZRST_REP_FREQ_STATISTICS_TAB.PLAY_TIME
+  is '各时段 如：01:00-02:00';
+comment on column ZRST_REP_FREQ_STATISTICS_TAB.FREQ_LISTENS
+  is '6到25M可听率集合 如：6_7_9_11_13_15_17_19_21_25';
+comment on column ZRST_REP_FREQ_STATISTICS_TAB.SUB_REPORT_TYPE
+  is '子报表类型 1、语言  2、发射台   3、时段';
+
+
+-- Create table
+create table ZRST_REP_TIME_STATISTICS_TAB
+(
+  DATA_ID          NUMBER,
+  REPORT_ID        NUMBER,
+  RECEIVE_NAME     VARCHAR2(20),
+  TRANSMIT_STATION VARCHAR2(30),
+  LANGUAGE_NAME    VARCHAR2(20),
+  FREQ_TYPE        VARCHAR2(4),
+  TIME_LISTENS     VARCHAR2(40),
+  SUB_REPORT_TYPE  VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the columns 
+comment on column ZRST_REP_TIME_STATISTICS_TAB.DATA_ID
+  is 'REPORT_ID';
+comment on column ZRST_REP_TIME_STATISTICS_TAB.REPORT_ID
+  is '报表ID';
+comment on column ZRST_REP_TIME_STATISTICS_TAB.RECEIVE_NAME
+  is '遥控站名';
+comment on column ZRST_REP_TIME_STATISTICS_TAB.TRANSMIT_STATION
+  is '发射台';
+comment on column ZRST_REP_TIME_STATISTICS_TAB.LANGUAGE_NAME
+  is '语言';
+comment on column ZRST_REP_TIME_STATISTICS_TAB.FREQ_TYPE
+  is '频率类型 如：6M';
+comment on column ZRST_REP_TIME_STATISTICS_TAB.TIME_LISTENS
+  is '24小时时间段的可听率集合 如：1_2_3_4_5_6_7_8_9_10_11_12_13_14_15_16_17_18_19_20_21_22_23_24';
+comment on column ZRST_REP_TIME_STATISTICS_TAB.SUB_REPORT_TYPE
+  is '子报表类型 1、语言  2、发射台   3、频段';
+
+ 
+insert into dic_report_type_tab(id,name,tab_name) values(1006,'遥控站频段效果统计','ZRST_REP_FREQ_STATISTICS_TAB');
+insert into dic_report_type_tab(id,name,tab_name) values(1007,'遥控站时段效果统计','ZRST_REP_TIME_STATISTICS_TAB');
+ 
+ --======================================================================================
+ --2013-03-14
+ -- Add/modify columns 
+alter table RADIO_SPECTRUM_STAT_TAB add shortname varchar2(100);
+-- Add comments to the columns 
+comment on column RADIO_SPECTRUM_STAT_TAB.shortname
+  is '站点名称';
+ 
+ --======================================================================================
+ --2013-03-18
+ -- Add/modify columns 
+alter table RES_TASK_UNIT_TAB add RECORD_TYPE varchar2(10);
+-- Add comments to the columns 
+comment on column RES_TASK_UNIT_TAB.RECORD_TYPE
+  is '运行图录音任务类型 质量 录音';
+ 
+ --======================================================================================
+ --2013-05-15
+ update sec_operation_tab set class_path='com/viewscenes/module/sysmgr/dicManager/Season/SeasonTab.swf' where operation_id= 1300205;
+ 
+ alter table res_transmit_station_tab add station_type varchar2(100);
+ -- Add comments to the columns 
+comment on column RES_TRANSMIT_STATION_TAB.STATION_TYPE
+  is '发射台所属  国内直属,国内地方,海外直属,海外转播';
+ 
+  --======================================================================================
+ --2013-05-16
+ -- Add/modify columns 
+alter table RADIO_QUALITY_ALARM_TAB add errorInDb char(1);
+-- Add comments to the columns 
+comment on column RADIO_QUALITY_ALARM_TAB.errorInDb
+  is '是否还可以入异态表 1可以 0不可以';
+  -- Add/modify columns 
+alter table RADIO_QUALITY_ALARM_TAB modify ERRORINDB default 0;
+ --======================================================================================
+  -- Add/modify columns 
+alter table ZRES_RUNPLAN_TAB modify REST_DATETIME varchar2(100);
+-- Add/modify columns 
+alter table ZRES_FREQ_TIME_TAB modify REST_DATETIME varchar2(100);
+-- Add/modify columns 
+alter table ZRES_RUNPLAN_CHAIFEN_TAB modify REST_DATETIME varchar2(100);
+-- Add/modify columns 
+alter table ZRES_FREQ_TIME_TAB modify ANTENNA varchar2(100);
+
+
+insert into dic_report_type_tab(id,name,tab_name) values(1008,'国际台广播效果汇总','ZRST_REP_FREQ_STATISTICS_TAB');
+insert into dic_report_type_tab(id,name,tab_name) values(1009,'海外落地广播效果汇总','ZRST_REP_TIME_STATISTICS_TAB');
+
+insert into sec_operation_tab(operation_id,operation_name,type,parent_operation_id,broadcast_type,show_flag,show_name,class_path,icon_source,fast_icon_source,func_type) 
+values(1300210,'大洲信息',1,13002,1,1,'大洲信息','com/viewscenes/module/dicManager/stateManager.swf','com/viewscenes/images/default/global2/menu3/3.jpg','com/viewscenes/images/default/global2/menu3/3_over.jpg',1);
+
+create table zres_runplan_disturb_tab (
+ runplan_id number primary key,
+ station_id number, 
+ sencity_id number,
+ transmiter_no varchar2(20),
+ freq number,
+ language varchar2(25),
+ start_time varchar2(20),
+ end_time varchar2(20),
+ valid_start_time date,
+ valid_end_time date,
+ disturb varchar2(200),
+ is_delete number);
+create sequence zres_runplan_disturb_seq;
+--======================================================================================
+--2013-05-22
+--RADIO_ABNORMAL_TAB  表的REMOTE_NAME改为COLLECTION_POINT 注释为采集点   REMOTE_STATION注释为遥控站
+alter table RADIO_ABNORMAL_TAB rename column REMOTE_NAME to COLLECTION_POINT;
+comment on column RADIO_ABNORMAL_TAB.REMOTE_STATION
+  is '遥控站';
+comment on column RADIO_ABNORMAL_TAB.COLLECTION_POINT
+  is '采集点';
+--======================================================================================
+--2013-05-28
+--zres_runplan_disturb_tab 表 添加 power redisseminators receive_country receive_city 4个属性
+alter table zres_runplan_disturb_tab add power number;
+alter table zres_runplan_disturb_tab  add  redisseminators varchar2(50) ;
+alter table zres_runplan_disturb_tab add receive_country varchar2(50);
+alter table zres_runplan_disturb_tab add receive_city varchar2(50) ;
+comment on column zres_runplan_disturb_tab.power is '发射功率';
+comment on column zres_runplan_disturb_tab.station_id is '发射台ID';
+comment on column zres_runplan_disturb_tab.sencity_id is '发射城市';
+comment on column zres_runplan_disturb_tab.freq is '频率';
+comment on column zres_runplan_disturb_tab.transmiter_no is '机号';
+comment on column zres_runplan_disturb_tab.language is '语言';
+comment on column zres_runplan_disturb_tab.start_time is '开播时间';
+comment on column zres_runplan_disturb_tab.end_time is '停播时间';
+comment on column zres_runplan_disturb_tab.valid_start_time is '启用日期';
+comment on column zres_runplan_disturb_tab.valid_end_time is '停用日期';
+comment on column zres_runplan_disturb_tab.redisseminators is '转播机构';
+comment on column zres_runplan_disturb_tab.receive_country is '收测国家';
+comment on column zres_runplan_disturb_tab.receive_city is '收测城市';
+comment on column zres_runplan_disturb_tab.is_delete is '是否删除 ，0为未删除';
+comment on column zres_runplan_disturb_tab.disturb is '干扰信息';
+alter table zres_runplan_disturb_tab add station_name varchar2(100);
+comment on column zres_runplan_disturb_tab.station_name is '发射台名称';
+-- Add/modify columns 
+alter table ZRES_FREQ_TIME_TAB modify DIRECTION varchar2(100);
+--=======================================================================================
+--2013-05-29
+--zres_runplan_disturb_tab 添加 type：录入类型 国际台，海外落地
+alter table zres_runplan_disturb_tab add type number;
+comment on column zres_runplan_disturb_tab.type is '录入类型 国际台，海外落地';
+update zres_runplan_disturb_tab set type=1
+
+--2013-06-03
+-- Add/modify columns 
+alter table ZRST_REP_TIME_STATISTICS_TAB modify TIME_LISTENS VARCHAR2(100);
+
+
+
+--=======================================================================================
+--2013-06-04
+-- Add/modify columns 
+alter table RADIO_EQU_MAIN_TAB add head_name VARCHAR2(20);
+-- Add comments to the columns 
+comment on column RADIO_EQU_MAIN_TAB.head_name
+  is '站点名称';
+  
+--========================================================================================
+--2013-06-05
+--zres_runplan_disturb_tab 添加disrun_id 
+alter table zres_runplan_disturb_tab rename  column runplan_id to disrun_id;
+alter table zres_runplan_disturb_tab add runplan_id number(38);
+comment on column zres_runplan_disturb_tab.runplan_id is '运行图ID';
+  
+  -- Add/modify columns 
+alter table RADIO_EQU_MAIN_TAB add pic_path VARCHAR2(40);
+-- Add comments to the columns 
+comment on column RADIO_EQU_MAIN_TAB.pic_path
+  is '文件路径';
+ --======================================================================================
+ --2013-06-13
+ --sec_operation_tab 
+ update  sec_operation_tab t set t.operation_name='租机互转台异态录入' , t.show_name='租机互转台异态录入' where t.operation_id=1000201;
+ --=======================================================================================
+ --2013-07-01
+ --sec_operation_tab 添加 网络运行监测
+insert into sec_operation_tab t (operation_id,operation_name,operation_description,type,parent_operation_id,description,broadcast_type,show_flag,show_name,class_path,icon_source,fast_icon_source,func_type)
+ values (13004,'网络运行监测','',1,13,'',1,1,'网络运行监测','com/viewscenes/module/checkSystemRunning/SystemRunningCheck.swf','com/viewscenes/images/default/global2/menu3/3_over.jpg','com/viewscenes/images/default/global2/menu3/3_over.jpg',1)
+ --2013-07-03
+ -- Add/modify columns 
+alter table ZRES_RUNPLAN_TAB rename column LOCAL_TIME to LOCAL_start_TIME;
+alter table ZRES_RUNPLAN_TAB modify LOCAL_start_TIME varchar2(20);
+alter table ZRES_RUNPLAN_TAB add local_end_time varchar2(20);
+-- Add comments to the columns 
+comment on column ZRES_RUNPLAN_TAB.LOCAL_start_TIME
+  is '当地播音开始时间';
+comment on column ZRES_RUNPLAN_TAB.local_end_time
+  is '当地播音结束时间';
+  --2013-07-11
+  insert into sec_operation_tab
+  (operation_id,
+   operation_name,
+   operation_description,
+   type,
+   parent_operation_id,
+   description,
+   broadcast_type,
+   show_flag,
+   show_name,
+   class_path,
+   icon_source,
+   fast_icon_source,
+   func_type)
+values
+  (400403,
+   '语音识别工作组报警',
+   '',
+   1,
+   4004,
+   '',
+   0,
+   1,
+   '语音识别工作组报警',
+   'com/viewscenes/module/systemManager/netCheck/CKYDataCheck.swf',
+   'com/viewscenes/images/default/global1/menu/three/menu3_up.png',
+   'com/viewscenes/images/default/global1/menu/three/menu3_up.png',
+   1)
+   
+   insert into sec_operation_tab
+  (operation_id,
+   operation_name,
+   operation_description,
+   type,
+   parent_operation_id,
+   description,
+   broadcast_type,
+   show_flag,
+   show_name,
+   class_path,
+   icon_source,
+   fast_icon_source,
+   func_type)
+values
+  (400402,
+   '语音识别工作组监测',
+   '',
+   1,
+   4004,
+   '',
+   0,
+   1,
+   '语音识别工作组监测',
+   'com/viewscenes/module/systemManager/netCheck/YYSBNetCheck.swf',
+   'com/viewscenes/images/default/global1/menu/three/menu3_up.png',
+   'com/viewscenes/images/default/global1/menu/three/menu3_up.png',
+   1)
+  --==========================================================================================
+ --2013-07-11
+ --res_headend_tab  修改经纬度
+update res_headend_tab res set res.longitude='7E67' , res.latitude='9N02' where res.shortname like '%阿布贾%' ;
+update res_headend_tab res set res.longitude='4E90' , res.latitude='52N38' where res.shortname like '%阿姆斯特丹%' ;
+update res_headend_tab res set res.longitude='171W75' , res.latitude='13S82' where res.shortname like '%阿皮亚%' ;
+update res_headend_tab res set res.longitude='44E52' , res.latitude='40N19' where res.shortname like '%埃里温%' ;
+update res_headend_tab res set res.longitude='32E85' , res.latitude='39N93' where res.shortname like '%安卡拉%' ;
+update res_headend_tab res set res.longitude='35E95' , res.latitude='31N97' where res.shortname like '%安曼%' ;
+update res_headend_tab res set res.longitude='2E35' , res.latitude='48N86' where res.shortname like '%巴黎%' ;
+update res_headend_tab res set res.longitude='8W00' , res.latitude='12N65' where res.shortname like '%巴马科%' ;
+update res_headend_tab res set res.longitude='79W51' , res.latitude='9N00' where res.shortname like '%巴拿马城%' ;
+update res_headend_tab res set res.longitude='75W28' , res.latitude='5N15' where res.shortname like '%巴西利%' ;
+update res_headend_tab res set res.longitude='47W92' , res.latitude='15S77' where res.shortname like '%巴西利亚%' ;
+update res_headend_tab res set res.longitude='18E55' , res.latitude='4N36' where res.shortname like '%班吉%' ;
+update res_headend_tab res set res.longitude='20E46' , res.latitude='44N82' where res.shortname like '%贝尔格莱德%' ;
+update res_headend_tab res set res.longitude='74E59' , res.latitude='42N87' where res.shortname like '%比什凯克%' ;
+update res_headend_tab res set res.longitude='15E28' , res.latitude='4S26' where res.shortname like '%布拉柴维尔%' ;
+update res_headend_tab res set res.longitude='17E11' , res.latitude='48N15' where res.shortname like '%布拉迪斯拉发%' ;
+update res_headend_tab res set res.longitude='14E44' , res.latitude='50N08' where res.shortname like '%布拉格%' ;
+update res_headend_tab res set res.longitude='153E02' , res.latitude='27S47' where res.shortname like '%布里斯班%' ;
+update res_headend_tab res set res.longitude='4E35' , res.latitude='50N85' where res.shortname like '%布鲁塞尔%' ;
+update res_headend_tab res set res.longitude='29E36' , res.latitude='3S37' where res.shortname like '%布琼布拉%' ;
+update res_headend_tab res set res.longitude='17W37' , res.latitude='14N77' where res.shortname like '%达喀尔%' ;
+update res_headend_tab res set res.longitude='39E27' , res.latitude='6S82' where res.shortname like '%达累斯萨拉姆%' ;
+update res_headend_tab res set res.longitude='51E42' , res.latitude='35N70' where res.shortname like '%德黑兰%' ;
+update res_headend_tab res set res.longitude='55E31' , res.latitude='25N27' where res.shortname like '%迪拜%' ;
+update res_headend_tab res set res.longitude='117W04' , res.latitude='32N52' where res.shortname like '%蒂华纳%' ;
+update res_headend_tab res set res.longitude='44E79' , res.latitude='41N71' where res.shortname like '%第比利斯%' ;
+update res_headend_tab res set res.longitude='51E52' , res.latitude='25N28' where res.shortname like '%多哈%' ;
+update res_headend_tab res set res.longitude='79W38' , res.latitude='43N66' where res.shortname like '%多伦多%' ;
+update res_headend_tab res set res.longitude='129E07' , res.latitude='35N18' where res.shortname like '%釜山%' ;
+update res_headend_tab res set res.longitude='31E05' , res.latitude='17S82' where res.shortname like '%哈拉雷%' ;
+update res_headend_tab res set res.longitude='77W04' , res.latitude='38N90' where res.shortname like '%华盛顿%' ;
+update res_headend_tab res set res.longitude='78W52' , res.latitude='0S21' where res.shortname like '%基多%' ;
+update res_headend_tab res set res.longitude='85E33' , res.latitude='27N70' where res.shortname like '%加德满都%' ;
+update res_headend_tab res set res.longitude='104E92' , res.latitude='11N56' where res.shortname like '%金边%' ;
+update res_headend_tab res set res.longitude='15E31' , res.latitude='4S33' where res.shortname like '%金沙萨%' ;
+update res_headend_tab res set res.longitude='74W00' , res.latitude='41N93' where res.shortname like '%金斯顿%' ;
+update res_headend_tab res set res.longitude='122W42' , res.latitude='37N77' where res.shortname like '%旧金山%' ;
+update res_headend_tab res set res.longitude='69E17' , res.latitude='34N53' where res.shortname like '%喀布尔%' ;
+update res_headend_tab res set res.longitude='32E53' , res.latitude='15N55' where res.shortname like '%喀土穆%' ;
+update res_headend_tab res set res.longitude='67E03' , res.latitude='24N89' where res.shortname like '%卡拉奇%' ;
+update res_headend_tab res set res.longitude='31E23' , res.latitude='30N05' where res.shortname like '%开罗%' ;
+update res_headend_tab res set res.longitude='149E12' , res.latitude='35S30' where res.shortname like '%堪培拉%' ;
+update res_headend_tab res set res.longitude='32E58' , res.latitude='0N31' where res.shortname like '%坎帕拉%' ;
+update res_headend_tab res set res.longitude='79E86' , res.latitude='6N93' where res.shortname like '%科伦坡%' ;
+update res_headend_tab res set res.longitude='21W89' , res.latitude='64N13' where res.shortname like '%雷克雅未克%' ;
+update res_headend_tab res set res.longitude='9W15' , res.latitude='38N73' where res.shortname like '%里斯本%' ;
+update res_headend_tab res set res.longitude='43W21' , res.latitude='22S90' where res.shortname like '%里约热内卢%' ;
+update res_headend_tab res set res.longitude='28E28' , res.latitude='15S40' where res.shortname like '%卢萨卡%' ;
+update res_headend_tab res set res.longitude='6E13' , res.latitude='49N61' where res.shortname like '%卢森堡%' ;
+update res_headend_tab res set res.longitude='0W12' , res.latitude='51N51' where res.shortname like '%伦敦%' ;
+update res_headend_tab res set res.longitude='13E23' , res.latitude='8S83' where res.shortname like '%罗安达%' ;
+update res_headend_tab res set res.longitude='61W38' , res.latitude='15N30' where res.shortname like '%罗索%' ;
+update res_headend_tab res set res.longitude='1E21' , res.latitude='6N14' where res.shortname like '%洛美%' ;
+update res_headend_tab res set res.longitude='118W24' , res.latitude='34N05' where res.shortname like '%洛杉矶%' ;
+update res_headend_tab res set res.longitude='3W70' , res.latitude='40N42' where res.shortname like '%马德里%' ;
+update res_headend_tab res set res.longitude='120E98' , res.latitude='14N60' where res.shortname like '%马尼拉%' ;
+update res_headend_tab res set res.longitude='100E52' , res.latitude='13N73' where res.shortname like '%曼谷%' ;
+update res_headend_tab res set res.longitude='10W79' , res.latitude='6N30' where res.shortname like '%蒙罗维亚%' ;
+update res_headend_tab res set res.longitude='56W18' , res.latitude='34S88' where res.shortname like '%蒙特维的亚%' ;
+update res_headend_tab res set res.longitude='9E18' , res.latitude='45N47' where res.shortname like '%米兰%' ;
+update res_headend_tab res set res.longitude='147E19' , res.latitude='9S48' where res.shortname like '%莫尔斯比港%' ;
+update res_headend_tab res set res.longitude='43E25' , res.latitude='11S70' where res.shortname like '%莫罗尼%' ;
+update res_headend_tab res set res.longitude='37E61' , res.latitude='55N75' where res.shortname like '%莫斯科%' ;
+update res_headend_tab res set res.longitude='144E96' , res.latitude='37S81' where res.shortname like '%墨尔本%' ;
+update res_headend_tab res set res.longitude='22E93' , res.latitude='30S56' where res.shortname like '%南非%' ;
+update res_headend_tab res set res.longitude='96E21' , res.latitude='19N74' where res.shortname like '%内比都%' ;
+update res_headend_tab res set res.longitude='2E11' , res.latitude='13N51' where res.shortname like '%尼亚美%' ;
+update res_headend_tab res set res.longitude='74W00' , res.latitude='40N72' where res.shortname like '%纽约%' ;
+update res_headend_tab res set res.longitude='175W2' , res.latitude='21S13' where res.shortname like '%努库阿洛法%' ;
+update res_headend_tab res set res.longitude='15W97' , res.latitude='18N08' where res.shortname like '%努瓦克肖特%' ;
+update res_headend_tab res set res.longitude='55W16' , res.latitude='5N82' where res.shortname like '%帕拉马里博%' ;
+update res_headend_tab res set res.longitude='97W67' , res.latitude='30N63' where res.shortname like '%乔治敦%' ;
+update res_headend_tab res set res.longitude='39E20' , res.latitude='6S16' where res.shortname like '%桑给巴尔%' ;
+update res_headend_tab res set res.longitude='70W64' , res.latitude='33S46' where res.shortname like '%圣地亚哥%' ;
+update res_headend_tab res set res.longitude='23E32' , res.latitude='42N70' where res.shortname like '%索菲亚%' ;
+update res_headend_tab res set res.longitude='24E75' , res.latitude='59N44' where res.shortname like '%塔林%' ;
+update res_headend_tab res set res.longitude='69E21' , res.latitude='41N27' where res.shortname like '%塔什干%' ;
+update res_headend_tab res set res.longitude='10E16' , res.latitude='36N82' where res.shortname like '%突尼斯%' ;
+update res_headend_tab res set res.longitude='25E27' , res.latitude='54N69' where res.shortname like '%维尔纽斯%' ;
+update res_headend_tab res set res.longitude='168E32' , res.latitude='17S73' where res.shortname like '%维拉港%' ;
+update res_headend_tab res set res.longitude='151E20' , res.latitude='33S86' where res.shortname like '%悉尼%' ;
+update res_headend_tab res set res.longitude='77E22' , res.latitude='28N64' where res.shortname like '%新德里%' ;
+update res_headend_tab res set res.longitude='103E82' , res.latitude='1N35' where res.shortname like '%新加坡%' ;
+update res_headend_tab res set res.longitude='95W37' , res.latitude='29N76' where res.shortname like '%休斯顿%' ;
+update res_headend_tab res set res.longitude='23E73' , res.latitude='37N98' where res.shortname like '%雅典%' ;
+update res_headend_tab res set res.longitude='106E84' , res.latitude='6S21' where res.shortname like '%雅加达%' ;
+update res_headend_tab res set res.longitude='45E03' , res.latitude='12N80' where res.shortname like '%亚丁%' ;
+update res_headend_tab res set res.longitude='28E97' , res.latitude='41N01' where res.shortname like '%伊斯坦布尔%' ;
+update res_headend_tab res set res.longitude='115E85' , res.latitude='31S95' where res.shortname like '%珀斯%' ;  
+  
+--=================================================================================
+insert into sec_operation_tab(operation_id,operation_name,type,parent_operation_id,broadcast_type,show_flag,show_name,class_path,icon_source,fast_icon_source,func_type) 
+values(1100207,'效果报告对比统计',1,11002,1,1,'效果报告对比统计','com/viewscenes/module/statistics/effectReport/EffectReportStatisticsCompare.swf','com/viewscenes/images/default/global2/menu3/3.jpg','com/viewscenes/images/default/global2/menu3/3_over.jpg',1);
+--===================================================================================
+insert into sec_operation_tab(operation_id,operation_name,type,parent_operation_id,broadcast_type,show_flag,show_name,class_path,icon_source,fast_icon_source,func_type) 
+values(19,'运行状态图',1,0,0,1,'','com/viewscenes/module/systemTopology/runState/runStateManager.swf','com/viewscenes/images/default/global1/menu/first/1menu_over_lycx.jpg','com/viewscenes/images/default/global1/menu/first/1menu_lycx.jpg',1);
+--=====================================================================================
+insert into sec_operation_tab(operation_id,operation_name,type,parent_operation_id,broadcast_type,show_flag,show_name,class_path,icon_source,fast_icon_source,func_type) 
+values(9003,'站点运行统计',1,9,1,1,'站点运行统计','com/viewscenes/module/devicemgr/equmaintain/EquipmentMaintenance.swf','com/viewscenes/images/default/global2/menu3/3.jpg','com/viewscenes/images/default/global2/menu3/3_over.jpg',1);
+--=======================================================================================
+update sec_operation_tab set icon_source ='com/viewscenes/images/default/global1/menu/first/sy.jpg' ,
+ fast_icon_source ='com/viewscenes/images/default/global1/menu/first/sy.jpg' where operation_id=15
+update sec_operation_tab set icon_source ='com/viewscenes/images/default/global1/menu/first/sy.jpg' ,
+ fast_icon_source ='com/viewscenes/images/default/global1/menu/first/sy.jpg' where operation_id=19
+ --================================================================================================================
+ --2013-10-11
+ --create
+ create table radio_equ_install_tab (
+      id number primary key,
+      head_id number,
+      head_name varchar2(200),
+      head_code varchar2(200),
+      equ_name varchar2(200),
+      equ_id varchar2(100),
+      state number,
+      mail_time date,
+      order_no varchar2(100)
+);
+   comment on column radio_equ_install_tab.head_id
+  is '站点id';
+  comment on column radio_equ_install_tab.head_name
+  is '站点名称';
+  comment on column radio_equ_install_tab.head_code
+  is '站点代码';
+  comment on column radio_equ_install_tab.equ_name
+  is '设备名称';
+  comment on column radio_equ_install_tab.equ_id
+  is '设备编号';
+  comment on column radio_equ_install_tab.state
+  is '设备状态(0:使用,1:备用,2:报废)';
+  comment on column radio_equ_install_tab.mail_time
+  is '邮寄时间';
+  comment on column radio_equ_install_tab.order_no
+  is '邮件单号';
+  create sequence radio_equ_install_seq;
+  insert into sec_operation_tab(operation_id,operation_name,type,parent_operation_id,broadcast_type,show_flag,show_name,class_path,icon_source,fast_icon_source,func_type) 
+values(9004,'设备安装管理',1,9,1,1,'设备安装管理','com/viewscenes/module/devicemgr/Equinstall/EquInstallManager.swf','com/viewscenes/images/default/global2/menu3/3.jpg','com/viewscenes/images/default/global2/menu3/3_over.jpg',1);
+--=====================================================================================================================
+--2013-11- 
+--故障维护表修改
+alter table radio_equ_main_tab add start_time date;
+comment on column radio_equ_main_tab.start_time is '故障开始时间';
+alter table radio_equ_main_tab add end_time date;
+comment on column radio_equ_main_tab.end_time is '故障结束时间';
+alter table radio_equ_main_tab add person varchar2(200);
+comment on column radio_equ_main_tab.person is '维护人';
+alter table radio_equ_main_tab add resault varchar2(500);
+comment on column radio_equ_main_tab.resault is '处理结果';
+alter table radio_equ_main_tab add record_path varchar2(200);
+comment on column radio_equ_main_tab.record_path is '录音文件路径';
+--添加故障录音文件路径
+insert into SYS_CONFIGURATION_TAB values('equ_record_path','');
+--2013-12-4
+-- Add/modify columns 
+alter table ZRES_RUNPLAN_CHAIFEN_TAB add parent_id number;
+-- Add comments to the columns 
+comment on column ZRES_RUNPLAN_CHAIFEN_TAB.parent_id
+  is '运行图总表的id';
+  -- Add/modify columns 
+alter table ZRST_REP_EFFECT_STATISTICS_TAB add runplan_id number;
+-- Add comments to the columns 
+comment on column ZRST_REP_EFFECT_STATISTICS_TAB.runplan_id
+  is '运行图id, 为了变频时统计频时数后加的字段';
+  --2013-12-13
+  -- Add comments to the columns 
+comment on column ZRES_RUNPLAN_TAB.SUMMER
+  is '季节类型';
+ --添加收测站点 到干扰表
+ --2013-12-26
+ -- Add/modify columns 
+alter table ZRES_RUNPLAN_DISTURB_TAB add receive_station varchar2(200);
+-- Add comments to the columns 
+comment on column ZRES_RUNPLAN_DISTURB_TAB.receive_station is '收测站点';
+--=================================================================================
+--2014-02-11
+--大洲信息表修改 添加夏令时时间
+alter table dic_state_tab add start_time date;
+comment on column dic_state_tab.start_time is '夏令时开始时间';
+alter table dic_state_tab add end_time date;
+comment on column dic_state_tab.end_time is '夏令时结束时间';
+--=================================================================================
+--2014-02-12
+--站点信息添加是否还有夏令时时间属性
+alter table res_headend_tab add summertime varchar2(10);
+comment on column res_headend_tab.summertime is '是否含有夏令时，0 无，1 有'
+--==================================================================================
+--2014-02-27
+--站点运行统计添加故障设备 ，建议属性
+alter table zrst_rep_equipment_tab add equ varchar2(20);
+comment on column zrst_rep_equipment_tab.equ is '故障设备';
+alter table zrst_rep_equipment_tab add advice varchar2(200);
+comment on column zrst_rep_equipment_tab.advice is '建议';
+--====================================================================================================
+--2014-3-3
+--设备管理表修改
+alter table radio_equ_main_tab add old_equ varchar2(20);
+comment on  column radio_equ_main_tab.old_equ is '旧设备编号';
+alter table radio_equ_main_tab add old_place varchar2(20);
+comment on  column radio_equ_main_tab.old_place is '旧设备去向，0站点保存 1使馆寄存';
+alter table radio_equ_main_tab add old_status varchar2(20);
+comment on  column radio_equ_main_tab.old_status is '旧设备状态：0可以修复，1已经报废';
+alter table radio_equ_main_tab add new_equ varchar2(20);
+comment on  column radio_equ_main_tab.new_equ is '新设备编号';
+alter table radio_equ_main_tab add new_from varchar2(20);
+comment on  column radio_equ_main_tab.new_from is '新设备来源:0邮寄过去，1站点存储，2使馆存储';
+alter table radio_equ_main_tab add mail_order varchar2(20);
+comment on  column radio_equ_main_tab.mail_order is '邮件单号';
+alter table radio_equ_main_tab add mail_time date;
+comment on  column radio_equ_main_tab.mail_time is '邮寄时间';
+---========================================================================================================
+--2014-3-7
+--设备安装表修改
+alter table radio_equ_install_tab add save_place varchar2(20);
+comment on  column radio_equ_install_tab.save_place is '设备存放地点:0站点保存,1使馆寄存' ;
+alter table radio_equ_install_tab rename column state to status;
+comment on column radio_equ_install_tab.status  is '设备状态(0:使用,1:备用,2:可修复,3:报废)';
+update sec_operation_tab  set operation_name ='站点设备统计',show_name='站点设备统计' where operation_id=9004
+--===========================================================================================================
+--2014-03-10
+--异态录入表修改
+alter table radio_abnormal_tab  add insert_person varchar2(20);
+comment on column radio_abnormal_tab.insert_person is '录入人';
+alter table radio_abnormal_tab  add proof_person varchar2(20);
+comment on column radio_abnormal_tab.proof_person is '校对人';
+alter table radio_abnormal_tab  add audit_person varchar2(20);
+comment on column radio_abnormal_tab.audit_person is '审核人';
+--===============================================================================================
+--2014-04-24
+alter table zres_runplan_disturb_tab add insert_time date;
+comment on column zres_runplan_disturb_tab.insert_time is '录入日期';
+--=====================================================================================================
+--2014-05-23 外网修改
+update sec_operation_tab set operation_name ='实时监测',class_path='com/viewscenes/module/leader/RealMonitor.swf',icon_source='com/viewscenes/images/default/global1/menu/first/1menu_over_ssjc.jpg',fast_icon_source='com/viewscenes/images/default/global1/menu/first/1menu_ssjc.jpg' where operation_id=
+insert into sec_operation_tab(operation_id,operation_name,type,parent_operation_id,broadcast_type,show_flag,show_name,class_path,icon_source,fast_icon_source,func_type) 
+values(20,'运行状态图',1,0,0,1,'','com/viewscenes/module/systemTopology/map_navigate/MapWindow.swf','com/viewscenes/images/default/global1/menu/first/1menu_over_sy.jpg','com/viewscenes/images/default/global1/menu/first/1menu_sy.jpg',1);

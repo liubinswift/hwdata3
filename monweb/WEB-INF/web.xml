@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+ <display-name>monweb</display-name>
+ <!-- FLEX 通讯 
+ Http Flex Session attribute and binding listener support -->
+ <listener>
+  <listener-class>flex.messaging.HttpFlexSession</listener-class>
+ </listener>
+ <listener>
+  <listener-class>org.jmask.web.controller.SessionListener</listener-class>
+ </listener>
+ <servlet>
+  <display-name>MessageBrokerServlet</display-name>
+  <servlet-name>MessageBrokerServlet</servlet-name>
+  <servlet-class>flex.messaging.MessageBrokerServlet</servlet-class>
+  <init-param>
+   <param-name>services.configuration.file</param-name>
+   <param-value>/WEB-INF/flex/services-config.xml</param-value>
+  </init-param>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet>
+  <display-name>Apache-Axis Servlet</display-name>
+  <servlet-name>AxisServlet</servlet-name>
+  <servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <display-name>SOAP Monitor Service</display-name>
+  <servlet-name>SOAPMonitorService</servlet-name>
+  <servlet-class>org.apache.axis.monitor.SOAPMonitorService</servlet-class>
+  <init-param>
+   <param-name>SOAPMonitorPort</param-name>
+   <param-value>5001</param-value>
+  </init-param>
+  <load-on-startup>100</load-on-startup>
+ </servlet>
+ <servlet>
+  <display-name>Axis Admin Servlet</display-name>
+  <servlet-name>AdminServlet</servlet-name>
+  <servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class>
+  <load-on-startup>100</load-on-startup>
+ </servlet>
+ <servlet>
+  <servlet-name>jmaskservlet</servlet-name>
+  <servlet-class>org.jmask.web.controller.JMaskServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet>
+  <servlet-name>deviceservlet</servlet-name>
+  <servlet-class>com.viewscenes.device.framework.DeviceServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>deleteLog</servlet-name>
+  <servlet-class>com.viewscenes.web.ShowLogMessageServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>reportservlet</servlet-name>
+  <servlet-class>com.viewscenes.app.MsgServer</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>FileDownServlet</servlet-name>
+  <servlet-class>org.jmask.web.controller.FileDownServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>MessageBrokerServlet</servlet-name>
+  <url-pattern>/messagebroker/*</url-pattern>
+ </servlet-mapping>
+ <!-- servlet-mapping>
+    <servlet-name>deviceservlet</servlet-name>
+    <url-pattern>/xmlReceiver/upload</url-pattern>
+  </servlet-mapping -->
+ <servlet-mapping>
+  <servlet-name>SOAPMonitorService</servlet-name>
+  <url-pattern>/SOAPMonitor</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AxisServlet</servlet-name>
+  <url-pattern>/servlet/AxisServlet</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AxisServlet</servlet-name>
+  <url-pattern>*.jws</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AxisServlet</servlet-name>
+  <url-pattern>/services/*</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>reportservlet</servlet-name>
+  <url-pattern>/reportservlet</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>jmaskservlet</servlet-name>
+  <url-pattern>/jmaskservlet</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>deleteLog</servlet-name>
+  <url-pattern>/deleteLog</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>deviceservlet</servlet-name>
+  <url-pattern>/dev</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>FileDownServlet</servlet-name>
+  <url-pattern>/servlet/FileDownServlet</url-pattern>
+ </servlet-mapping>
+ <servlet>
+    <servlet-name>FileUpLoad</servlet-name>
+    <servlet-class>com.viewscenes.fileUpload.FileUpload</servlet-class>
+    <load-on-startup>10</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>FileUpLoad</servlet-name>
+   	 <url-pattern>/uploadservlet</url-pattern>
+  </servlet-mapping>
+   <servlet>
+   <servlet-name>PictureUpLoad</servlet-name>
+    <servlet-class>com.viewscenes.fileUpload.PictureUpload</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PictureUpLoad</servlet-name>
+   	 <url-pattern>/pictureServlet</url-pattern>
+  </servlet-mapping>
+  
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+</web-app>
