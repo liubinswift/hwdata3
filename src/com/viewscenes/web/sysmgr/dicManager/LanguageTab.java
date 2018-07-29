@@ -93,7 +93,7 @@ public class LanguageTab {
             }
             catch (DbException e) {
     			e.printStackTrace();
-    			return new EXEException("","数据库查询错误!",null);
+    			return new EXEException("","新增语言出现异常!",e);
     		}
     		catch (Exception e) {
     			e.printStackTrace();
@@ -125,7 +125,7 @@ public class LanguageTab {
               }
               catch (DbException e) {
       			e.printStackTrace();
-      			return new EXEException("","数据库查询错误!",null);
+      			return new EXEException("","更新语言信息异常!",e);
       		}
       		catch (Exception e) {
       			e.printStackTrace();

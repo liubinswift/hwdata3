@@ -676,8 +676,21 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                     " and state.state = head.state " +
                     " and mark.start_datetime>=to_date('"+keyValue.getStartDate()+"','yyyy-mm-dd hh24:mi:ss')" +
                     " and mark.end_datetime<=to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss')  ";
+        
             if(headcodes!=null&&!headcodes.equalsIgnoreCase("")){
-                sql+=" and '"+headcodes.substring(0, headcodes.length()-1)+"' like '%'||mark.HEAD_CODE||'%' ";
+                //	sql+=" and '"+headcodes.substring(0, headcodes.length()-1)+"' like '%'||mark.HEAD_CODE||'%' ";
+                if(headcodes.split(",").length>1){
+                    String[] ss = headcodes.split(",");
+                    String newsql="";
+                    for(int m=0;m<ss.length;m++){
+                        newsql+=" mark.HEAD_CODE like '%"+ss[m]+"%' or";
+                    }
+                    sql+=" and ("+newsql.substring(0, newsql.length()-2)+")";
+                }else{
+                    //sql+="and '"+headcodes.substring(0, headcodes.length()-1)+"' like '%'||head.code||'%' ";
+                    sql+=" and mark.HEAD_CODE like '%"+headcodes.substring(0, headcodes.length()-1)+"%'";
+                }
+
             }
             sql+=" order by mark.headname ";
             GDSet gd = DbComponent.Query(sql);

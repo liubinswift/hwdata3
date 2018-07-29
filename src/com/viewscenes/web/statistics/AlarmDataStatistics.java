@@ -340,6 +340,7 @@ public class AlarmDataStatistics {
 		ws.addCell(new Label(9, 1, "异态日期", wcfF));
 		ws.addCell(new Label(10, 1, "异态发生时间", wcfF));
 		ws.addCell(new Label(11, 1, "异态时间(分)", wcfF));
+		ws.addCell(new Label(12, 1, "备注", wcfF));
 		ws.addCell(new Label(12, 1, "总次数", wcfF));
 		ws.addCell(new Label(13, 1, "异态总时间(分)", wcfF));
 		// ws.addCell(new Label(14,1,"实时/录音",wcfF));
@@ -393,7 +394,7 @@ public class AlarmDataStatistics {
 			}
 		}
 
-		ws.mergeCells(0, 0, 13, 0);
+		ws.mergeCells(0, 0, 14, 0);
 		wf = new WritableFont(WritableFont.createFont("黑体"), 12,
 				WritableFont.BOLD, false);
 		wcfF = new WritableCellFormat(wf);
@@ -421,6 +422,7 @@ public class AlarmDataStatistics {
 		ws.setColumnView(11, 13);
 		ws.setColumnView(12, 13);
 		ws.setColumnView(13, 10);
+		ws.setColumnView(14, 10);
 		// ws.setColumnView(14, 10);
 
 		WritableFont wf1 = new WritableFont(WritableFont.createFont("宋体"), 10,
@@ -508,8 +510,7 @@ public class AlarmDataStatistics {
 				if (ABNORMAL_TYPES.length > 1)
 					ws.mergeCells(4, curRow, 4, curRow + ABNORMAL_TYPES.length
 							- 1);
-				ws
-						.addCell(new Label(4, curRow, bean_flag.getSend_city(),
+				ws.addCell(new Label(4, curRow, bean_flag.getSend_city(),
 								wcfF2));
 				if (ABNORMAL_TYPES.length > 1)
 					ws.mergeCells(5, curRow, 5, curRow + ABNORMAL_TYPES.length
@@ -553,15 +554,16 @@ public class AlarmDataStatistics {
 							.addCell(new Label(11, curRow + k, format(COUNT_MINUES[k]),
 									wcfF2));
 				}
-				if (ABNORMAL_TYPES.length > 1)
-					ws.mergeCells(12, curRow, 12, curRow
-							+ ABNORMAL_TYPES.length - 1);
-				ws.addCell(new Label(12, curRow, ABNORMAL_TYPES.length + "",
-						wcfF2));
+				ws.addCell(new Label(12, curRow, bean_flag.getRemark(), wcfF2));
 				if (ABNORMAL_TYPES.length > 1)
 					ws.mergeCells(13, curRow, 13, curRow
 							+ ABNORMAL_TYPES.length - 1);
-				ws.addCell(new Label(13, curRow, format(count + ""), wcfF2));
+				ws.addCell(new Label(13, curRow, ABNORMAL_TYPES.length + "",
+						wcfF2));
+				if (ABNORMAL_TYPES.length > 1)
+					ws.mergeCells(14, curRow, 14, curRow
+							+ ABNORMAL_TYPES.length - 1);
+				ws.addCell(new Label(14, curRow, format(count + ""), wcfF2));
 				// if(ABNORMAL_TYPES.length>1)
 				// ws.mergeCells(14,curRow,14,curRow+ABNORMAL_TYPES.length-1);
 				// ws.addCell(new Label(14,curRow,
@@ -584,8 +586,9 @@ public class AlarmDataStatistics {
 			ws.addCell(new Label(9, 2, bean_flag.getAbnormal_date(), wcfF2));
 			ws.addCell(new Label(10, 2, bean_flag.getAbnormal_time(), wcfF2));
 			ws.addCell(new Label(11, 2, format(bean_flag.getCount_minues()), wcfF2));
-			ws.addCell(new Label(12, 2, "1", wcfF2));
-			ws.addCell(new Label(13, 2, format(bean_flag.getCount_minues()), wcfF2));
+			ws.addCell(new Label(12, 2, bean_flag.getRemark(), wcfF2));
+			ws.addCell(new Label(13, 2, "1", wcfF2));
+			ws.addCell(new Label(14, 2, format(bean_flag.getCount_minues()), wcfF2));
 			// ws.addCell(new Label(14,2, bean_flag.getGet_type(),wcfF2));
 		} else if (list.size() != 0)// 最后一条也要加上
 		{
@@ -643,16 +646,16 @@ public class AlarmDataStatistics {
 			for (int k = 0; k < COUNT_MINUES.length; k++) {
 				ws.addCell(new Label(11, curRow + k, format(COUNT_MINUES[k]), wcfF2));
 			}
-			if (ABNORMAL_TYPES.length > 1)
-				ws.mergeCells(12, curRow, 12, curRow + ABNORMAL_TYPES.length
-						- 1);
-			ws
-					.addCell(new Label(12, curRow, ABNORMAL_TYPES.length + "",
-							wcfF2));
+			ws.addCell(new Label(12, curRow, bean_flag.getRemark(), wcfF2));
 			if (ABNORMAL_TYPES.length > 1)
 				ws.mergeCells(13, curRow, 13, curRow + ABNORMAL_TYPES.length
 						- 1);
-			ws.addCell(new Label(13, curRow, format(count + ""), wcfF2));
+			ws.addCell(new Label(13, curRow, ABNORMAL_TYPES.length + "",
+							wcfF2));
+			if (ABNORMAL_TYPES.length > 1)
+				ws.mergeCells(14, curRow, 14, curRow + ABNORMAL_TYPES.length
+						- 1);
+			ws.addCell(new Label(14, curRow, format(count + ""), wcfF2));
 			// if(ABNORMAL_TYPES.length>1)
 			// ws.mergeCells(14,curRow,14,curRow+ABNORMAL_TYPES.length-1);
 			// ws.addCell(new Label(14,curRow, bean_flag.getGet_type(),wcfF2));
@@ -674,8 +677,9 @@ public class AlarmDataStatistics {
 		ws.addCell(new Label(9, n, "", wcfF2));
 		ws.addCell(new Label(10, n, "", wcfF2));
 		ws.addCell(new Label(11, n, "", wcfF2));
-		ws.addCell(new Label(12, n, sum[0], wcfF2));
-		ws.addCell(new Label(13, n, format(sum[1]), wcfF2));
+		ws.addCell(new Label(12, n, "", wcfF2));
+		ws.addCell(new Label(13, n, sum[0], wcfF2));
+		ws.addCell(new Label(14, n, format(sum[1]), wcfF2));
 		wwb.write();
 		wwb.close();
 		outputStream.close();
