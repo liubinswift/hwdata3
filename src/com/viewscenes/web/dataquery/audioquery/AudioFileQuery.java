@@ -364,8 +364,7 @@ public class AudioFileQuery {
 	/**
 	 * 收听效果打分入库
 	 * 
-	 * @param request
-	 * @param opDetail
+	 * @param radioMarkZstViewBean
 	 * @return
 	 */
 	public  Object setMark(RadioMarkZstViewBean radioMarkZstViewBean) {

@@ -36,7 +36,6 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
             this.asobj=asobj;
             this.report_id=report_id;
             this.type=type;
-
         }
 
         /**
@@ -45,7 +44,8 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
          * @return
          * @throws Exception
          */
-        public LinkedHashMap call() throws Exception {
+        public LinkedHashMap call()  {
+        	try {
           if(this.type.equals("11"))//国际台广播效果统计表 或者海外落地效果统计
           {
               return  statisticsReportCondition11(starttime, endtime, my_report_type,report_type, asobj, report_id);
@@ -82,6 +82,9 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
           {
               return  statisticsReportCondition71(starttime, endtime, my_report_type, report_type, asobj, report_id);
           }
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
             return  null;
         }
     /**
