@@ -341,8 +341,8 @@ public class AlarmDataStatistics {
 		ws.addCell(new Label(10, 1, "异态发生时间", wcfF));
 		ws.addCell(new Label(11, 1, "异态时间(分)", wcfF));
 		ws.addCell(new Label(12, 1, "备注", wcfF));
-		ws.addCell(new Label(12, 1, "总次数", wcfF));
-		ws.addCell(new Label(13, 1, "异态总时间(分)", wcfF));
+		ws.addCell(new Label(13, 1, "总次数", wcfF));
+		ws.addCell(new Label(14, 1, "异态总时间(分)", wcfF));
 		// ws.addCell(new Label(14,1,"实时/录音",wcfF));
 		String typesql = "select name from dic_abnormal_type_tab t order by t.id  ";
 		GDSet set = DbComponent.Query(typesql);
