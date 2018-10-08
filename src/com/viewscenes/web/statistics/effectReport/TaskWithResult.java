@@ -2677,57 +2677,64 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
         }
     }
     public static List<KeyValueForDate> getKeyValueForDate(String startDate,String endDate) {
-        List<KeyValueForDate> list = null;
-        try {
-            list = new ArrayList<KeyValueForDate>();
-            Date start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);// 定义起始日期
-            Date end = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);// 定义结束日期
-            
-            Date monthSD = new SimpleDateFormat("yyyy-MM").parse(startDate);
-            Date monthEd = new SimpleDateFormat("yyyy-MM").parse(endDate);
-            Calendar sc = Calendar.getInstance();//定义日期实例
-            sc.setTime(monthSD);//设置日期起始时间
-            KeyValueForDate keyValue =null;
-            while(sc.getTime().before(end)){//判断是否到结束日期
-            	keyValue =new KeyValueForDate();
-            	SimpleDateFormat desc = new SimpleDateFormat("yyyy-MM-dd");
-            	  Calendar calendar = Calendar.getInstance();   
-            	  calendar.setTime(sc.getTime());
-            	    
-            	if(sc.getTime().equals(start)||sc.getTime().before(start))
-            	{
-            		keyValue.setStartDate(startDate);
-            		 calendar.set(Calendar.DAY_OF_MONTH, calendar     
-             	            .getActualMaximum(Calendar.DAY_OF_MONTH)); 
-            		 if(calendar.getTime().after(end))
-            		 {
-            			 keyValue.setEndDate(endDate); 
-            		 }else {
-            		   keyValue.setEndDate(desc.format(calendar.getTime())+" 23:59:59"); 
-            		 }
-           
-            	}else{
-            		 calendar.set(Calendar.DAY_OF_MONTH, calendar     
-             	            .getActualMinimum(Calendar.DAY_OF_MONTH)); 
-            		keyValue.setStartDate(desc.format(calendar.getTime())+" 00:00:00");
-            		 calendar.set(Calendar.DAY_OF_MONTH, calendar     
-              	            .getActualMaximum(Calendar.DAY_OF_MONTH));
-            		 if(calendar.getTime().after(end))
-            		 {
-            			 keyValue.setEndDate(endDate); 
-            		 }else{
-            		   keyValue.setEndDate(desc.format(calendar.getTime())+" 23:59:59");
-            		 }
-            	}
-            	sc.add(Calendar.MONTH, 1);//进行当前日期月份加1
-            	list.add(keyValue);
-
-            }
-        } catch (ParseException e) {
-            return null;
-        }
-
-        return list;
+    	 
+        List<KeyValueForDate> list = new ArrayList<KeyValueForDate>();
+        KeyValueForDate keyValue =new KeyValueForDate();
+        keyValue.setStartDate(startDate);
+        keyValue.setEndDate(endDate);
+        list.add(keyValue);
+        return list ;
+//        List<KeyValueForDate> list =null;
+//        try {
+//            list = new ArrayList<KeyValueForDate>();
+//            Date start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);// 定义起始日期
+//            Date end = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);// 定义结束日期
+//            
+//            Date monthSD = new SimpleDateFormat("yyyy-MM").parse(startDate);
+//            Date monthEd = new SimpleDateFormat("yyyy-MM").parse(endDate);
+//            Calendar sc = Calendar.getInstance();//定义日期实例
+//            sc.setTime(monthSD);//设置日期起始时间
+//            KeyValueForDate keyValue =null;
+//            while(sc.getTime().before(end)){//判断是否到结束日期
+//            	keyValue =new KeyValueForDate();
+//            	SimpleDateFormat desc = new SimpleDateFormat("yyyy-MM-dd");
+//            	  Calendar calendar = Calendar.getInstance();   
+//            	  calendar.setTime(sc.getTime());
+//            	    
+//            	if(sc.getTime().equals(start)||sc.getTime().before(start))
+//            	{
+//            		keyValue.setStartDate(startDate);
+//            		 calendar.set(Calendar.DAY_OF_MONTH, calendar     
+//             	            .getActualMaximum(Calendar.DAY_OF_MONTH)); 
+//            		 if(calendar.getTime().after(end))
+//            		 {
+//            			 keyValue.setEndDate(endDate); 
+//            		 }else {
+//            		   keyValue.setEndDate(desc.format(calendar.getTime())+" 23:59:59"); 
+//            		 }
+//           
+//            	}else{
+//            		 calendar.set(Calendar.DAY_OF_MONTH, calendar     
+//             	            .getActualMinimum(Calendar.DAY_OF_MONTH)); 
+//            		keyValue.setStartDate(desc.format(calendar.getTime())+" 00:00:00");
+//            		 calendar.set(Calendar.DAY_OF_MONTH, calendar     
+//              	            .getActualMaximum(Calendar.DAY_OF_MONTH));
+//            		 if(calendar.getTime().after(end))
+//            		 {
+//            			 keyValue.setEndDate(endDate); 
+//            		 }else{
+//            		   keyValue.setEndDate(desc.format(calendar.getTime())+" 23:59:59");
+//            		 }
+//            	}
+//            	sc.add(Calendar.MONTH, 1);//进行当前日期月份加1
+//            	list.add(keyValue);
+//
+//            }
+//        } catch (ParseException e) {
+//            return null;
+//        }
+//
+//        return list;
     }
 
 
