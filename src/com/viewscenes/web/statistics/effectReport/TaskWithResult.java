@@ -127,7 +127,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                         " (select * from zres_runplan_disturb_tab where  valid_end_time>to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss')) dis  "+
                         //" zres_runplan_disturb_tab dis " +
                         " where mark.runplan_id=runplan.runplan_id and  runplan.language_id=lan.language_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                        " and runplan.station_id=station.station_id and head.code=mark.head_code and head.is_delete =0  " +
+                        " and runplan.station_id=station.station_id and head.com_id != 0 and head.code=mark.head_code and head.is_delete =0  " +
                         " and mark.report_type=1 " +//效果录音
                         //" and runplan.is_delete=0 " +
                         " and runplan.valid_end_time>=to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss') "+
@@ -149,7 +149,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                         " res_headend_tab head," +
                         " zres_runplan_disturb_tab dis " +
                         " where mark.runplan_id=runplan.runplan_id and  runplan.language_id=lan.language_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                        " and head.code=mark.head_code" +
+                        " and head.com_id != 0  and head.code=mark.head_code" +
                         " and mark.report_type=1 " +//效果录音
                         //" and runplan.is_delete=0 " +
                         //" and runplan.valid_end_time>=to_date('"+endtime+"','yyyy-mm-dd hh24:mi:ss') "+
@@ -383,7 +383,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                       " res_headend_tab head," +
                       " dic_state_tab            state" +
                       " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                      " and head.code=mark.head_code and head.is_delete =0   " +
+                      " and head.com_id != 0  and head.code=mark.head_code and head.is_delete =0   " +
                       " and mark.report_type=1 " +//效果录音
                       //" and runplan.is_delete=0 " +
                       valid_end_timeString+
@@ -669,7 +669,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                     " res_headend_tab head," +
                     " dic_state_tab            state" +
                     " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                    " and head.code=mark.head_code and head.is_delete =0  " +
+                    " and head.com_id != 0  and head.code=mark.head_code and head.is_delete =0  " +
                     " and mark.report_type=1 " +//效果录音
                     //" and runplan.is_delete=0 " +
                     valid_end_timeString +
@@ -1006,7 +1006,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                      " res_headend_tab head," +
                      " dic_state_tab state" +
                      " where  mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                     " and head.code=mark.head_code and head.is_delete =0  " +
+                     " and head.com_id != 0 and head.code=mark.head_code and head.is_delete =0  " +
                      " and mark.report_type=1 " +//效果录音
                      //" and runplan.is_delete=0 " +
 
@@ -1169,7 +1169,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                      " zdic_language_tab lan ," +
                      " dic_state_tab            state" +
                      " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                     " and head.code=mark.head_code and head.is_delete =0  " +
+                     " and head.com_id != 0 and head.code=mark.head_code and head.is_delete =0  " +
                      " and mark.report_type=1 " +//效果录音
                      //" and runplan.is_delete=0 " +
                      valid_end_timeString +
@@ -1405,7 +1405,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                     " zdic_language_tab lan ," +
                     " dic_state_tab            state" +
                     " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                    " and head.code=mark.head_code and head.is_delete =0  " +
+                    " and head.com_id != 0 and head.code=mark.head_code and head.is_delete =0  " +
                     " and  runplan.language_id=lan.language_id " +
                     " and mark.report_type=1 " +//效果录音
                     //" and runplan.is_delete=0 " +
@@ -1769,7 +1769,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                          " (select * from zres_runplan_disturb_tab where  valid_end_time>to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss')) dis  "+
                          //" zres_runplan_disturb_tab dis " +
                          " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null and  runplan.language_id=lan.language_id " +
-                         " and runplan.station_id=station.station_id and head.is_delete =0 and head.code=mark.head_code" +
+                         " and runplan.station_id=station.station_id and head.com_id != 0 and head.com_id != 0 and head.is_delete =0 and head.code=mark.head_code" +
                          " and mark.report_type=1 " +//效果录音
                          //	" and mark.is_delete=0 " +
                          //" and runplan.is_delete=0 " +
@@ -1808,7 +1808,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                          " (select * from zres_runplan_disturb_tab where  valid_end_time>to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss')) dis  "+
                          //" zres_runplan_disturb_tab dis " +
                          " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null and  runplan.language_id=lan.language_id " +
-                         "  and head.code=mark.head_code and head.is_delete =0  " +
+                         " and head.com_id != 0  and head.code=mark.head_code and head.is_delete =0  " +
                          " and mark.report_type=1 " +//效果录音
                          //	" and mark.is_delete=0 " +
                          //" and runplan.is_delete=0 " +
@@ -2110,7 +2110,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                           " res_transmit_station_tab station," +
                           " dic_state_tab            state" +
                           " where mark.runplan_id=runplan.runplan_id  and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                          " and runplan.station_id=station.station_id and head.is_delete =0  and head.code=mark.head_code" +
+                          " and runplan.station_id=station.station_id and head.com_id != 0 and head.is_delete =0  and head.code=mark.head_code" +
                           " and mark.report_type=1 " +//效果录音
                           //	" and mark.is_delete=0 " +
                           //" and runplan.is_delete=0 " +
@@ -2128,7 +2128,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                           " res_headend_tab head," +
                           " dic_state_tab            state" +
                           " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                          " and head.code=mark.head_code and head.is_delete =0 " +
+                          " and head.com_id != 0 and head.code=mark.head_code and head.is_delete =0 " +
                           " and mark.report_type=1 " +//效果录音
                           //" and runplan.is_delete=0 " +
                           //" and runplan.valid_end_time>=to_date('"+endtime+"','yyyy-mm-dd hh24:mi:ss') "+
@@ -2391,7 +2391,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                         " res_transmit_station_tab station," +
                         " dic_state_tab            state" +
                         " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                        " and runplan.station_id=station.station_id and head.is_delete =0  and head.code=mark.head_code" +
+                        " and runplan.station_id=station.station_id and head.com_id != 0 and head.is_delete =0  and head.code=mark.head_code" +
                         " and mark.report_type=1 " +//效果录音
                         //" and record.is_delete=0 " +
                         //" and runplan.is_delete=0 " +
@@ -2411,7 +2411,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                         " res_headend_tab head," +
                         " dic_state_tab            state" +
                         " where mark.runplan_id=runplan.runplan_id and mark.counto is not null and mark.counti is not null and mark.counts is not null " +
-                        " and head.code=mark.head_code and head.is_delete =0  " +
+                        " and head.com_id != 0 and head.code=mark.head_code and head.is_delete =0  " +
                         " and mark.report_type=1 " +//效果录音
                         //" and runplan.is_delete=0 " +
                         //" and runplan.valid_end_time>=to_date('"+endtime+"','yyyy-mm-dd hh24:mi:ss') "+
