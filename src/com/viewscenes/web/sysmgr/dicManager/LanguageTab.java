@@ -78,8 +78,8 @@ public class LanguageTab {
              String language_name = (String)resultStat.get("language_name");
              String broadcast_direction = (String)resultStat.get("broadcast_direction");
              String val = getLanguageNextVal();
-                 insertSql = "insert into zdic_language_tab(language_id, language_name,broadcast_direction) " +
-            				 "values('"+val+"','"+language_name+"','"+broadcast_direction+"')";
+                 insertSql = "insert into zdic_language_tab(language_id, language_name) " +
+            				 "values('"+val+"','"+language_name+"')";
           
          		
             try{
@@ -93,7 +93,7 @@ public class LanguageTab {
             }
             catch (DbException e) {
     			e.printStackTrace();
-    			return new EXEException("","数据库查询错误!",null);
+    			return new EXEException("","新增语言出现异常!",e);
     		}
     		catch (Exception e) {
     			e.printStackTrace();
@@ -110,7 +110,7 @@ public class LanguageTab {
   	     String broadcast_direction = (String)resultStat.get("broadcast_direction");
         
            
-           updateSql = " update  zdic_language_tab set Language_name='"+language_name+"', broadcast_direction='"+broadcast_direction+"' where Language_id='"+language_id+"'";
+           updateSql = " update  zdic_language_tab set Language_name='"+language_name+"' where Language_id='"+language_id+"'";
 
            
            try{
@@ -125,7 +125,7 @@ public class LanguageTab {
               }
               catch (DbException e) {
       			e.printStackTrace();
-      			return new EXEException("","数据库查询错误!",null);
+      			return new EXEException("","更新语言信息异常!",e);
       		}
       		catch (Exception e) {
       			e.printStackTrace();
