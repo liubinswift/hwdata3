@@ -54,6 +54,8 @@ public class DicService {
 		    String shortname = (String)obj.get("shortname");
 		    String code = (String)obj.get("code");
 		    String state=(String)obj.get("state");
+		    String com_protocol = (String)obj.get("com_protocol");
+		    String com_id = (String)obj.get("com_id");
 		    
 //	        String sql = "select distinct * from (select decode(t.type_id||t.version, '102V8', substr(t.code, 0, length(t.code)-1),t.code) code,com_id,com_protocol,ip," +
 //	        			"longitude,latitude,comphone,site,address,site_status,com_status,fault_status,"+
@@ -64,7 +66,20 @@ public class DicService {
 		    String sql = " select * from res_headend_tab where is_delete=0";
 	        if(type_id.length()>0)
 	        	 sql += " and type_id  in('"+type_id+"') ";
-	        
+	        if(!com_protocol.equals("0")){
+	        	if(com_protocol.equals("2")){
+	        		 sql += " and com_protocol  ='"+com_protocol+"'";
+	        	}else {
+	        		sql += " and (com_protocol is null or com_protocol ='1')";
+	        	}
+	        }
+	        if(!com_id.equals("")){
+	        	if(com_id.equals("0")){
+	        		 sql += " and com_id  ='"+com_id+"'";
+	        	}else {
+	        		sql += " and com_id !='0'";
+	        	}
+	        }
 	        if(shortname.length()>0)
 	        	sql += " and shortname  like ('%"+shortname+"%')";
 	        
