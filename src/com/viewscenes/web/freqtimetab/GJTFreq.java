@@ -124,7 +124,7 @@ public class GJTFreq {
 		String website = bean.getMon_area();
 		String season_id = bean.getSeason_id();
 		ASObject resObj=null;
-		String sql="select * from zres_freq_time_tab t where t.runplan_type_id=1";
+		String sql="select * from zres_freq_time_tab t where t.runplan_type_id=1 and t.valid_end_date>=to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') ";
 		if(station_id!=null && !station_id.equalsIgnoreCase("")){
 			sql+=" and t.station_id='"+station_id+"'";
 		}
@@ -177,7 +177,7 @@ public class GJTFreq {
 		String sql="select broadcast_time,t.service_area,t.freq,t.station_name," +
 		           "t.power,t.direction,t.language,t.transmiter_no,t.antenna,t.mon_area,t.xg_mon_area,t.program_type,t.ciraf," +
 		           "t.valid_start_date,t.valid_start_time,t.valid_end_date,t.valid_end_time,t.season_id " +
-		           "from zres_freq_time_tab t where t.runplan_type_id=1 ";
+		           "from zres_freq_time_tab t where t.runplan_type_id=1 and t.valid_end_date>=to_char(sysdate,'yyyy-MM-dd HH24:mi:ss')";
 		          
 
         if(station_id!=null && !station_id.equalsIgnoreCase("")){

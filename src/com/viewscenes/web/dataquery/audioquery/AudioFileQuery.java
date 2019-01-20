@@ -258,7 +258,11 @@ public class AudioFileQuery {
 					rmzvb.setMark_type((String)rowObj.get("mark_type"));
 					rmzvb.setEdit_user((String)rowObj.get("edit_user"));
 					rmzvb.setUnit((String)rowObj.get("unit"));
-					rmzvb.setMark_file_url((String)rowObj.get("mark_file_url"));
+					String mark_file_url  = (String)rowObj.get("mark_file_url");
+					if(mark_file_url!=null&&mark_file_url.indexOf("10.15.5.15")!=-1){
+						mark_file_url= mark_file_url.replace("10.15.5.15", "10.15.5.31");
+					}
+					rmzvb.setMark_file_url(mark_file_url);
 					rmzvb.setFile_name((String)rowObj.get("file_name"));
 					rmzvb.setFile_length((String)rowObj.get("file_length"));
 					rmzvb.setRecord_start_time((String)rowObj.get("record_start_time"));
@@ -318,6 +322,9 @@ public class AudioFileQuery {
 				rsrb.setFilename(filename);
 				rsrb.setFilesize(filesize);
 				rsrb.setHead_id(head_id);
+				if(url!=null&&url.indexOf("10.15.5.15")!=-1){
+					url= url.replace("10.15.5.15", "10.15.5.31");
+				}
 				rsrb.setUrl(url);
 				rsrb.setReport_type(report_type);
 				rsrb.setIs_stored(is_stored);
@@ -347,6 +354,7 @@ public class AudioFileQuery {
 					+ e.getMessage(), "");
 		}
 		resultObj.put("resultList",list);
+	    System.out.println("==================="+list.toString());
 		return resultObj;
 	}
 	public Object deleteAudioFile(ASObject object){

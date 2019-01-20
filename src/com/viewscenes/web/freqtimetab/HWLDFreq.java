@@ -118,7 +118,7 @@ public class HWLDFreq {
 		String language = bean.getLanguage();
 		String freq = bean.getFreq();
 		String website = bean.getMon_area();
-		String sql="select * from zres_freq_time_tab  where runplan_type_id=2";
+		String sql="select * from zres_freq_time_tab  where runplan_type_id=2 and valid_end_date>=to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') ";
 		if(language!=null && !language.equalsIgnoreCase("")){
 			sql+=" and language like '%"+language+"%'";
 		}
@@ -164,7 +164,7 @@ public class HWLDFreq {
 		String sql="select t.broadcast_time,t.local_start_time,t.local_end_time,t.service_area,t.freq,t.launch_country,t.sentcity ," +
 		"t.redisseminators,t.language,t.direction,t.mon_area,t.xg_mon_area," +
 		"t.valid_start_date,t.valid_start_time,t.valid_end_date,t.valid_end_time,t.rest_datetime " +
-		" from zres_freq_time_tab t where t.runplan_type_id=2 ";
+		" from zres_freq_time_tab t where t.runplan_type_id=2  and valid_end_date>=to_char(sysdate,'yyyy-MM-dd HH24:mi:ss') ";
 
         if(language!=null && !language.equalsIgnoreCase("")){
 	       sql+=" and t.language like '%"+language+"%'";
