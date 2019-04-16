@@ -2,9 +2,13 @@ package com.viewscenes.web.dataquery.audioquery;
 
 import java.util.ArrayList;
 
+import org.apache.commons.httpclient.util.DateUtil;
 import org.jmask.web.controller.EXEException;
 
 import com.viewscenes.bean.RadioMarkZstViewBean;
+import com.viewscenes.bean.RadioStreamResultBean;
+import com.viewscenes.bean.ResHeadendBean;
+import com.viewscenes.bean.runplan.RunplanBean;
 import com.viewscenes.dao.database.DbComponent;
 import com.viewscenes.dao.database.DbException;
 import com.viewscenes.dao.database.DbComponent.DbQuickExeSQL;
@@ -44,173 +48,197 @@ public class MarkService {
 			e.printStackTrace();
 		}
 		
-		StringBuffer sql = new StringBuffer();
+		RunplanBean  runplanBean = getRunplanBean(radioMarkZstViewBean.getRunplan_id());
+		RadioStreamResultBean  streamBean = getRadioStreamBean(radioMarkZstViewBean.getFile_name());
+		if(streamBean!=null){
+		  ResHeadendBean  headendBean = getHeadendBean(streamBean.getHead_id());
+		  if(headendBean!=null){
+			  StringBuffer sql = new StringBuffer();
 
-		// sql.append(" insert into radio_mark_zst_view_tab(mark_id, mark_user, mark_datetime, head_code,equ_code, frequency, runplan_id, counti, ");
-		// sql.append(" counto, counts, description, mark_type, edit_user, unit,mark_file_path, file_name, file_length, record_start_time, ");
-		// sql.append(" record_end_time, station_id, station_name, headname, language_name, play_time, task_id, task_name, level_value, ");
-		// sql.append(" fm_value, am_value,offset_value,remark) ");
-		// sql.append(" values(radio_mark_zst_seq.nextval,'"
-		// + radioMarkZstViewBean.getMark_user() + "',sysdate,'"
-		// + radioMarkZstViewBean.getHead_code() + "','"
-		// + radioMarkZstViewBean.getEqu_code() + "', '"
-		// + radioMarkZstViewBean.getFrequency() + "', '"
-		// + radioMarkZstViewBean.getRunplan_id() + "', '"
-		// + radioMarkZstViewBean.getCounti() + "', ");
-		// sql.append(" '" + radioMarkZstViewBean.getCounto() + "', '"
-		// + radioMarkZstViewBean.getCounts() + "', '"
-		// + radioMarkZstViewBean.getDescription() + "', '"
-		// + radioMarkZstViewBean.getMark_type() + "','"
-		// + radioMarkZstViewBean.getEdit_user() + "', '"
-		// + radioMarkZstViewBean.getUnit() + "','"
-		// + radioMarkZstViewBean.getMark_file_path() + "','"
-		// + radioMarkZstViewBean.getFile_name() + "','"
-		// + radioMarkZstViewBean.getFile_length() + "', to_date('"
-		// + radioMarkZstViewBean.getRecord_start_time()
-		// + "','yyyy-mm-dd hh24:mi:ss'), ");
-		// sql.append(" to_date('" + radioMarkZstViewBean.getRecord_end_time()
-		// + "','yyyy-mm-dd hh24:mi:ss'),'"
-		// + radioMarkZstViewBean.getStation_id() + "','"
-		// + radioMarkZstViewBean.getStation_name() + "', '"
-		// + radioMarkZstViewBean.getHeadname() + "', '"
-		// + radioMarkZstViewBean.getLanguage_name() + "','"
-		// + radioMarkZstViewBean.getPlay_time() + "','"
-		// + radioMarkZstViewBean.getTask_id() + "', '"
-		// + radioMarkZstViewBean.getTask_name() + "',  '"
-		// + radioMarkZstViewBean.getLevel_value() + "', ");
-		// sql.append(" '" + radioMarkZstViewBean.getFm_value() + "', '"
-		// + radioMarkZstViewBean.getAm_value() + "', '"
-		// + radioMarkZstViewBean.getOffset_value() + "', '"
-		// + radioMarkZstViewBean.getRemark() + "') ");
+				sql.append(" insert into radio_mark_zst_view_tab(mark_id, mark_user, mark_datetime, head_code,equ_code, frequency, runplan_id, counti, ");
+				sql.append(" counto, counts, description, mark_type, edit_user, unit,mark_file_url, file_name, file_length, record_start_time, ");
+				sql.append(" record_end_time, station_id, station_name, headname,  play_time, task_id, task_name, level_value, ");
+				sql.append(" fm_value, am_value,offset_value,remark,asr_type, result_type, status, wavelen, musicratio, noiseratio, ");
+				sql.append(" speechlen, totalcm, audibilityscore, audibilityconfidence, channelname, channelnameconfidence, programname,");
+				sql.append(" programnameconfidence, languagename1, languagename2, languagename3, languagename4, languagename5, ");
+				sql.append(" languageconfidence1, languageconfidence2, languageconfidence3, languageconfidence4, languageconfidence5) ");
+				sql.append(" values(?,?,sysdate,?,?, ?,?,?, ");
+				sql.append(" ?,?,?,?,?,?,?,?,?, ?, ");
+				sql.append(" ?,?,?,?,?,?,?,?, ");
+				sql.append(" ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 
-		sql
-				.append(" insert into radio_mark_zst_view_tab(mark_id, mark_user, mark_datetime, head_code,equ_code, frequency, runplan_id, counti, ");
-		sql
-				.append(" counto, counts, description, mark_type, edit_user, unit,mark_file_url, file_name, file_length, record_start_time, ");
-		sql
-				.append(" record_end_time, station_id, station_name, headname,  play_time, task_id, task_name, level_value, ");
-		sql
-				.append(" fm_value, am_value,offset_value,remark,asr_type, result_type, status, wavelen, musicratio, noiseratio, ");
-		sql
-				.append(" speechlen, totalcm, audibilityscore, audibilityconfidence, channelname, channelnameconfidence, programname,");
-		sql
-				.append(" programnameconfidence, languagename1, languagename2, languagename3, languagename4, languagename5, ");
-		sql
-				.append(" languageconfidence1, languageconfidence2, languageconfidence3, languageconfidence4, languageconfidence5) ");
-		sql.append(" values(?,?,sysdate,?,?, ?,?,?, ");
-		sql.append(" ?,?,?,?,?,?,?,?,?, ?, ");
-		sql.append(" ?,?,?,?,?,?,?,?, ");
-		sql
-				.append(" ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+				DbComponent db = new DbComponent();
+				DbComponent.DbQuickExeSQL prepExeSQL = db.new DbQuickExeSQL(sql
+						.toString());
 
-		DbComponent db = new DbComponent();
-		DbComponent.DbQuickExeSQL prepExeSQL = db.new DbQuickExeSQL(sql
-				.toString());
+				try {
+					prepExeSQL.getConnect();
+					prepExeSQL.setString(1, val);
+					prepExeSQL.setString(2, radioMarkZstViewBean.getMark_user());
+					prepExeSQL.setString(3, headendBean.getCode());
+					prepExeSQL.setString(4, streamBean.getEqu_code());
+					prepExeSQL.setString(5, streamBean.getFrequency());
+					prepExeSQL.setString(6, StringTool.setDefaultValue(runplanBean.getRunplan_id()));
+					prepExeSQL.setString(7, radioMarkZstViewBean.getCounti());
+					prepExeSQL.setString(8, radioMarkZstViewBean.getCounto());
+					prepExeSQL.setString(9, radioMarkZstViewBean.getCounts());
+					prepExeSQL.setString(10, radioMarkZstViewBean.getDescription());
+					prepExeSQL.setString(11, radioMarkZstViewBean.getMark_type());
+					prepExeSQL.setString(12, radioMarkZstViewBean.getEdit_user());
+					prepExeSQL.setString(13, radioMarkZstViewBean.getUnit());
+					prepExeSQL.setString(14, streamBean.getUrl());
+					prepExeSQL.setString(15, streamBean.getFilename());
+					prepExeSQL.setString(16, radioMarkZstViewBean.getFile_length());
+					if(streamBean.getStart_datetime()!=null&&streamBean.getStart_datetime().length()==19)
+					{
+						String start_time=streamBean.getStart_datetime().substring(11,streamBean.getStart_datetime().length());
+						prepExeSQL.setString(17, start_time);
+					}
+					if(streamBean.getEnd_datetime()!=null&&streamBean.getEnd_datetime().length()==19)
+					{
+						String end_time=streamBean.getEnd_datetime().substring(11,streamBean.getEnd_datetime().length());
+						prepExeSQL.setString(18, end_time);
+					}
 
-		try {
-			prepExeSQL.getConnect();
-	
-			prepExeSQL.setString(1, val);
-			prepExeSQL.setString(2, radioMarkZstViewBean.getMark_user());
-			prepExeSQL.setString(3, radioMarkZstViewBean.getHead_code());
-			prepExeSQL.setString(4, radioMarkZstViewBean.getEqu_code());
-			prepExeSQL.setString(5, radioMarkZstViewBean.getFrequency());
-			prepExeSQL.setString(6, StringTool.setDefaultValue(radioMarkZstViewBean.getRunplan_id()));
-			prepExeSQL.setString(7, radioMarkZstViewBean.getCounti());
-			prepExeSQL.setString(8, radioMarkZstViewBean.getCounto());
-			prepExeSQL.setString(9, radioMarkZstViewBean.getCounts());
-			prepExeSQL.setString(10, radioMarkZstViewBean.getDescription());
-			prepExeSQL.setString(11, radioMarkZstViewBean.getMark_type());
-			prepExeSQL.setString(12, radioMarkZstViewBean.getEdit_user());
-			prepExeSQL.setString(13, radioMarkZstViewBean.getUnit());
-			prepExeSQL.setString(14, radioMarkZstViewBean.getMark_file_url());
-			prepExeSQL.setString(15, radioMarkZstViewBean.getFile_name());
-			prepExeSQL.setString(16, radioMarkZstViewBean.getFile_length());
-			if(radioMarkZstViewBean.getRecord_start_time()!=null&&radioMarkZstViewBean.getRecord_start_time().length()==19)
-			{
-				String start_time=radioMarkZstViewBean.getRecord_start_time().substring(11,radioMarkZstViewBean.getRecord_start_time().length());
-				prepExeSQL.setString(17, start_time);
-			}
-			if(radioMarkZstViewBean.getRecord_end_time()!=null&&radioMarkZstViewBean.getRecord_end_time().length()==19)
-			{
-				String end_time=radioMarkZstViewBean.getRecord_end_time().substring(11,radioMarkZstViewBean.getRecord_end_time().length());
-				prepExeSQL.setString(18, end_time);
-			}
+					prepExeSQL.setString(19, StringTool.setDefaultValue(runplanBean.getStation_id()));
+					prepExeSQL.setString(20, StringTool.setDefaultValue(runplanBean.getStation_name()));
+					String headendname = headendBean.getShortname();				
+					 if(headendname.endsWith("A")||headendname.endsWith("B")||headendname.endsWith("C")||headendname.endsWith("D")||headendname.endsWith("E")||headendname.endsWith("F")||headendname.endsWith("G"))
+						headendname = headendname.substring(0, headendname.length()-1);
+					prepExeSQL.setString(21, headendname);
+					String playTime = StringTool.setDefaultValue(runplanBean.getStart_time())+"-"+StringTool.setDefaultValue(runplanBean.getEnd_time());
+					prepExeSQL.setString(22, playTime.equals("-")?"":playTime);
+					prepExeSQL.setString(23, streamBean.getTask_id());
+					prepExeSQL.setString(24, "");
+					prepExeSQL.setString(25, StringTool.setDefaultValue(streamBean.getLevelValue()));
+					prepExeSQL.setString(26, StringTool.setDefaultValue(streamBean.getFmModulation()));
+					prepExeSQL.setString(27, StringTool.setDefaultValue(streamBean.getAmModulation()));
+					prepExeSQL.setString(28, StringTool.setDefaultValue(streamBean.getOffset()));
+					prepExeSQL.setString(29, radioMarkZstViewBean.getRemark());
 
-			prepExeSQL.setString(19, StringTool.setDefaultValue(radioMarkZstViewBean.getStation_id()));
-			prepExeSQL.setString(20, StringTool.setDefaultValue(radioMarkZstViewBean.getStation_name()));
-			String headendname = radioMarkZstViewBean.getHeadname();
-//			if (radioMarkZstViewBean.getTask_id().equals("102"))
-//			{
-			 if(headendname.endsWith("A")||headendname.endsWith("B")||headendname.endsWith("C")||headendname.endsWith("D")||headendname.endsWith("E")||headendname.endsWith("F")||headendname.endsWith("G"))
-				headendname = headendname.substring(0, headendname.length()-1);
-					
-//			}
-			prepExeSQL.setString(21, headendname);
-			// prepExeSQL.setString(21,
-			// radioMarkZstViewBean.getLanguage_name());
-			prepExeSQL.setString(22, radioMarkZstViewBean.getPlay_time().equals("-")?"":radioMarkZstViewBean.getPlay_time());
-			prepExeSQL.setString(23, radioMarkZstViewBean.getTask_id());
-			prepExeSQL.setString(24, radioMarkZstViewBean.getTask_name());
-			prepExeSQL.setString(25, StringTool.setDefaultValue(radioMarkZstViewBean.getLevel_value()));
-			prepExeSQL.setString(26, StringTool.setDefaultValue(radioMarkZstViewBean.getFm_value()));
-			prepExeSQL.setString(27, StringTool.setDefaultValue(radioMarkZstViewBean.getAm_value()));
-			prepExeSQL.setString(28, StringTool.setDefaultValue(radioMarkZstViewBean.getOffeset_value()));
-			prepExeSQL.setString(29, radioMarkZstViewBean.getRemark());
+					prepExeSQL.setString(30, radioMarkZstViewBean.getAsr_type());
+					prepExeSQL.setString(31, radioMarkZstViewBean.getResult_type());
+					prepExeSQL.setString(32, radioMarkZstViewBean.getStatus());
+					prepExeSQL.setString(33, radioMarkZstViewBean.getWavelen());
+					prepExeSQL.setString(34, radioMarkZstViewBean.getMusicratio());
+					prepExeSQL.setString(35, radioMarkZstViewBean.getNoiseratio());
+					prepExeSQL.setString(36, radioMarkZstViewBean.getSpeechlen());
+					prepExeSQL.setString(37, radioMarkZstViewBean.getTotalcm());
+					prepExeSQL.setString(38, radioMarkZstViewBean.getAudibilityscore());
+					prepExeSQL.setString(39, radioMarkZstViewBean
+							.getAudibilityconfidence());
+					prepExeSQL.setString(40, radioMarkZstViewBean.getChannelname());
+					prepExeSQL.setString(41, radioMarkZstViewBean
+							.getChannelnameconfidence());
+					prepExeSQL.setString(42, radioMarkZstViewBean.getProgramname());
+					prepExeSQL.setString(43, radioMarkZstViewBean
+							.getProgramnameconfidence());
+					prepExeSQL.setString(44, radioMarkZstViewBean.getLanguagename1());
+					prepExeSQL.setString(45, radioMarkZstViewBean.getLanguagename2());
+					prepExeSQL.setString(46, radioMarkZstViewBean.getLanguagename3());
+					prepExeSQL.setString(47, radioMarkZstViewBean.getLanguagename4());
+					prepExeSQL.setString(48, radioMarkZstViewBean.getLanguagename5());
+					prepExeSQL.setString(49, radioMarkZstViewBean
+							.getLanguageconfidence1());
+					prepExeSQL.setString(50, radioMarkZstViewBean
+							.getLanguageconfidence2());
+					prepExeSQL.setString(51, radioMarkZstViewBean
+							.getLanguageconfidence3());
+					prepExeSQL.setString(52, radioMarkZstViewBean
+							.getLanguageconfidence4());
+					prepExeSQL.setString(53, radioMarkZstViewBean
+							.getLanguageconfidence5());
+					prepExeSQL.exeSQL();
 
-			prepExeSQL.setString(30, radioMarkZstViewBean.getAsr_type());
-			prepExeSQL.setString(31, radioMarkZstViewBean.getResult_type());
-			prepExeSQL.setString(32, radioMarkZstViewBean.getStatus());
-			prepExeSQL.setString(33, radioMarkZstViewBean.getWavelen());
-			prepExeSQL.setString(34, radioMarkZstViewBean.getMusicratio());
-			prepExeSQL.setString(35, radioMarkZstViewBean.getNoiseratio());
-			prepExeSQL.setString(36, radioMarkZstViewBean.getSpeechlen());
-			prepExeSQL.setString(37, radioMarkZstViewBean.getTotalcm());
-			prepExeSQL.setString(38, radioMarkZstViewBean.getAudibilityscore());
-			prepExeSQL.setString(39, radioMarkZstViewBean
-					.getAudibilityconfidence());
-			prepExeSQL.setString(40, radioMarkZstViewBean.getChannelname());
-			prepExeSQL.setString(41, radioMarkZstViewBean
-					.getChannelnameconfidence());
-			prepExeSQL.setString(42, radioMarkZstViewBean.getProgramname());
-			prepExeSQL.setString(43, radioMarkZstViewBean
-					.getProgramnameconfidence());
-			prepExeSQL.setString(44, radioMarkZstViewBean.getLanguagename1());
-			prepExeSQL.setString(45, radioMarkZstViewBean.getLanguagename2());
-			prepExeSQL.setString(46, radioMarkZstViewBean.getLanguagename3());
-			prepExeSQL.setString(47, radioMarkZstViewBean.getLanguagename4());
-			prepExeSQL.setString(48, radioMarkZstViewBean.getLanguagename5());
-			prepExeSQL.setString(49, radioMarkZstViewBean
-					.getLanguageconfidence1());
-			prepExeSQL.setString(50, radioMarkZstViewBean
-					.getLanguageconfidence2());
-			prepExeSQL.setString(51, radioMarkZstViewBean
-					.getLanguageconfidence3());
-			prepExeSQL.setString(52, radioMarkZstViewBean
-					.getLanguageconfidence4());
-			prepExeSQL.setString(53, radioMarkZstViewBean
-					.getLanguageconfidence5());
-			prepExeSQL.exeSQL();
-
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new EXEException("", "[站点:"
-					+ radioMarkZstViewBean.getHead_code() + "]打分失败|原因:"
-					+ e.getMessage(), radioMarkZstViewBean);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new EXEException("", "[站点:"
-					+ radioMarkZstViewBean.getHead_code() + "]打分失败|原因:"
-					+ e.getMessage(), radioMarkZstViewBean);
-		} finally {
-			prepExeSQL.closeConnect();
+				} catch (DbException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return new EXEException("", "[站点:"
+							+ radioMarkZstViewBean.getHead_code() + "]打分失败|原因:"
+							+ e.getMessage(), radioMarkZstViewBean);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return new EXEException("", "[站点:"
+							+ radioMarkZstViewBean.getHead_code() + "]打分失败|原因:"
+							+ e.getMessage(), radioMarkZstViewBean);
+				} finally {
+					prepExeSQL.closeConnect();
+				}
+		  }
 		}
-
 		return "打分完成,ID="+val;
 	}
-
+    private static ResHeadendBean getHeadendBean(String headId) {
+    	ResHeadendBean  headendBean = null;
+   	  try{
+	    	String sql="select * from res_headend_tab where head_id ="+headId;
+	    	GDSet gd = DbComponent.Query(sql);
+	      
+				for(int i=0;i<gd.getRowCount();i++){
+					headendBean =new ResHeadendBean();
+					headendBean.setCode(gd.getString(i,"code"));
+					headendBean.setShortname(gd.getString(i,"shortname"));
+					headendBean.setHead_id(gd.getString(i,"head_id"));
+				
+				return headendBean;
+				}
+   	  }catch(Exception e){
+   		  e.printStackTrace();
+   	  }
+   	return headendBean;
+	}
+	private static RadioStreamResultBean getRadioStreamBean(String fileName) {
+		RadioStreamResultBean  streamBean = null;
+   	  try{
+	    	String sql="select * from radio_stream_result_tab where mark_file_name ='"+fileName+"'";
+	    	GDSet gd = DbComponent.Query(sql);
+	      
+				for(int i=0;i<gd.getRowCount();i++){
+					streamBean =new RadioStreamResultBean();
+					streamBean.setEqu_code(gd.getString(i,"equ_code"));
+					streamBean.setFrequency(gd.getString(i,"frequency"));
+					streamBean.setMark_file_name(gd.getString(i,"mark_file_name"));
+					streamBean.setUrl(gd.getString(i,"url"));
+					streamBean.setStart_datetime(gd.getString(i,"start_datetime"));
+					streamBean.setEnd_datetime(gd.getString(i,"end_datetime"));
+					streamBean.setTask_id(gd.getString(i,"task_id"));
+					streamBean.setLevelValue(gd.getString(i,"level_value"));
+					streamBean.setLevelValue(gd.getString(i,"level_value"));
+					streamBean.setFmModulation(gd.getString(i,"fm_modulation"));
+					streamBean.setAmModulation(gd.getString(i,"am_modulation"));
+				    return streamBean;
+				}
+   	  }catch(Exception e){
+   		  e.printStackTrace();
+   	  }
+   	  return streamBean;
+	}
+	public static RunplanBean getRunplanBean(String runplan_id){
+    	  RunplanBean  runplanBean  =new RunplanBean();
+    	  try{
+	    	String sql="select * from zres_runplan_chaifen_tab where runplan_id ="+runplan_id;
+	    	GDSet gd = DbComponent.Query(sql);
+	      
+				for(int i=0;i<gd.getRowCount();i++){
+					
+					runplanBean.setRunplan_id(gd.getString(i,"runplan_id"));
+					runplanBean.setRunplan_type_id(gd.getString(i,"runplan_type_id"));
+					runplanBean.setStation_id(gd.getString(i,"station_id"));
+					runplanBean.setStation_name(gd.getString(i,"station_name"));
+					runplanBean.setTransmiter_no(gd.getString(i,"transmiter_no"));
+					runplanBean.setFreq(gd.getString(i,"freq"));
+					runplanBean.setValid_start_time(gd.getString(i,"valid_start_time"));
+					runplanBean.setValid_end_time(gd.getString(i,"valid_end_time"));
+					runplanBean.setStart_time(gd.getString(i,"start_time"));
+					runplanBean.setEnd_time(gd.getString(i,"end_time"));
+				return runplanBean;
+				}
+    	  }catch(Exception e){
+    		  e.printStackTrace();
+    	  }
+    	return runplanBean;
+    }
 	/**
 	 * 收听效果批量打分
 	 * 

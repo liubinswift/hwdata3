@@ -52,7 +52,7 @@ public class RecFileQuery {
 			sql = " select t.task_id,t.equ_code,t.frequency,result_id,t.band task_band,start_datetime,end_datetime,t.frequency task_freq,filename,filesize, t.head_id, ";
 			sql += " t.url,report_type,is_stored,t.store_datetime task_store_datetime,mark_file_name,t.equ_code task_equcode,run.*, " ;
 			sql += " mark_id, mark_user, mark_datetime, head_code, counti, counto, counts, description, mark_type, edit_user, " ;
-			sql += " unit, mark_file_url, file_name, file_length, record_start_time, record_end_time, headname, ";
+			sql += " unit, mark_file_url, file_name, file_length, record_start_time, record_end_time, hd.shortname headname, ";
 			sql += " play_time, task_name, t.level_value, fm_value, am_value,  mark.remark mark_remark  ";
 			sql += " from radio_stream_result_tab t,radio_mark_zst_view_tab mark, ";
 			sql += " (select run.*, p.program_name ,lan.language_name";
@@ -62,7 +62,7 @@ public class RecFileQuery {
 		//	sql += " and sysdate between run.valid_start_time and run.valid_end_time ";
 			sql += " ) run, res_headend_tab hd ";
 			sql += " where t.head_id = hd.head_id ";
-			sql += " and t.url = mark.mark_file_url(+) ";
+			sql += " and t.url = mark.mark_file_url ";
 			sql += " and t.runplan_id = run.runplan_id(+) ";
 			sql += " and t.is_delete = 0 ";
 			if(headCode!=null&&headCode.length()!=0){
