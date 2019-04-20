@@ -2,6 +2,7 @@ package com.viewscenes.web.dataquery.audioquery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.jmask.web.controller.EXEException;
 
@@ -24,7 +25,7 @@ import flex.messaging.io.amf.ASObject;
  * 10.15.6.11/12
  */
 public class RecFileQuery {
-
+	public static Map userMap =new HashMap();
 		/**
 		 * 在数据库中查询录音文件及打分情况
 		 * 包括效果录音(效果录音每半个小时只取其中一条)和质量录音
@@ -249,7 +250,22 @@ public class RecFileQuery {
 						rmzvb.setCounts((String)rowObj.get("counts"));
 						rmzvb.setDescription((String)rowObj.get("description"));
 						rmzvb.setMark_type((String)rowObj.get("mark_type"));
-						rmzvb.setEdit_user((String)rowObj.get("edit_user"));
+						//更新人处理
+						String edit_user = (String)rowObj.get("edit_user");
+						if(edit_user!=null&&!"".equals(edit_user)){
+							if(userMap.get(edit_user)!=null){
+								edit_user = (String) userMap.get(edit_user);
+							}else {
+							 String queryUser= "select user_id,user_name from sec_user_tab where user_id ='"+edit_user+"' and is_delete =0 ";
+							 GDSet set = DbComponent.Query(queryUser);
+							 for(int k=0;k<set.getRowCount();k++){
+								 edit_user = set.getString(k, "user_name");
+								 userMap.put(set.getString(k, "user_id"), set.getString(k, "user_name"));
+								 break;
+							 }
+							}
+						}
+						rmzvb.setEdit_user(edit_user);
 						rmzvb.setUnit((String)rowObj.get("unit"));
 						String mark_file_url  = (String)rowObj.get("mark_file_url");
 						if(mark_file_url!=null&&mark_file_url.indexOf("10.15.5.15")!=-1){
