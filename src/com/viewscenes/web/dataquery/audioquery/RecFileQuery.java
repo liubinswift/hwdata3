@@ -3,6 +3,7 @@ package com.viewscenes.web.dataquery.audioquery;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.jmask.web.controller.EXEException;
 
@@ -25,7 +26,85 @@ import flex.messaging.io.amf.ASObject;
  * 10.15.6.11/12
  */
 public class RecFileQuery {
-	public static Map userMap =new HashMap();
+	 public static Map<String , String> userMap ; 
+	 static  
+	    {  
+		 userMap = new HashMap<String, String>();  
+		 userMap.put("12762", "望开力");  
+		 userMap.put("12766", "许涛");  
+		 userMap.put("12767", "于洁");  
+		 userMap.put("12769", "田雅静");  
+		 userMap.put("12771", "张华斌");  
+		 userMap.put("12770", "张嘉");  
+		 userMap.put("12774", "甘宁");  
+		 userMap.put("12781", "lipeng");  
+		 userMap.put("12860", "test");  
+		 userMap.put("221", "admin");  
+		 userMap.put("12760", "张锦利");  
+		 userMap.put("12960", "李珊");  
+		 userMap.put("12802", "zhzbs");  
+		 userMap.put("12920", "杜冉");  
+		 userMap.put("41142", "xt");  
+		 userMap.put("33000", "aaaaaa");  
+		 userMap.put("34460", "xiamen");  
+		 userMap.put("41100", "zbs");  
+		 userMap.put("41140", "db");  
+		 userMap.put("13364", "张波");  
+		 userMap.put("41143", "tyj");  
+		 userMap.put("41144", "wkl");  
+		 userMap.put("41145", "zyq");  
+		 userMap.put("41146", "zjl");  
+		 userMap.put("13365", "许振");  
+		 userMap.put("13369", "马丽");  
+		 userMap.put("41150", "yj");  
+		 userMap.put("41151", "dr");  
+		 userMap.put("41222", "taishun");  
+		 userMap.put("41224", "713");  
+		 userMap.put("13370", "寇金涛");  
+		 userMap.put("68720", "ts");  
+		 userMap.put("72125", "guojitai");  
+		 userMap.put("85124", "wbj");  
+		 userMap.put("13300", "甄亚卿");  
+		 userMap.put("13301", "彭洋");  
+		 userMap.put("13371", "王洪波");  
+		 userMap.put("13372", "白艳玲");  
+		 userMap.put("13373", "罗立川");  
+		 userMap.put("13375", "侯丽利");  
+		 userMap.put("13376", "王宝君");  
+		 userMap.put("13377", "马玉红");  
+		 userMap.put("13361", "闫迪");  
+		 userMap.put("13140", "邓柏");  
+		 userMap.put("67660", "fyx");  
+		 userMap.put("41147", "ls");  
+		 userMap.put("41223", "jinshi");  
+		 userMap.put("80205", "duoxindao");  
+		 userMap.put("80265", "292");  
+		 userMap.put("80267", "293");  
+		 userMap.put("81408", "gn");  
+		 userMap.put("81564", "juxing");  
+		 userMap.put("85632", "mzx");  
+		 userMap.put("85633", "py");  
+		 userMap.put("85634", "hll");  
+		 userMap.put("85635", "ml");  
+		 userMap.put("85636", "wj");  
+		 userMap.put("85637", "kjt");  
+		 userMap.put("85638", "byl");  
+		 userMap.put("85639", "whb");  
+		 userMap.put("85640", "myh");  
+		 userMap.put("85641", "ll");
+		 userMap.put("85642", "ycm");  
+		 userMap.put("13340", "陈涛");  
+		 userMap.put("13360", "王晶");  
+		 userMap.put("13362", "郭冀明");  
+		 userMap.put("13363", "周悦");  
+		 userMap.put("13366", "胡婧");  
+		 userMap.put("13367", "杨春梅");  
+		 userMap.put("13368", "崔梦月");  
+		 userMap.put("13374", "莫志贤");  
+		 userMap.put("13378", "廖文华");  
+		 
+	    } 
+
 		/**
 		 * 在数据库中查询录音文件及打分情况
 		 * 包括效果录音(效果录音每半个小时只取其中一条)和质量录音
@@ -254,15 +333,7 @@ public class RecFileQuery {
 						String edit_user = (String)rowObj.get("edit_user");
 						if(edit_user!=null&&!"".equals(edit_user)){
 							if(userMap.get(edit_user)!=null){
-								edit_user = (String) userMap.get(edit_user);
-							}else {
-							 String queryUser= "select user_id,user_name from sec_user_tab where user_id ='"+edit_user+"' and is_delete =0 ";
-							 GDSet set = DbComponent.Query(queryUser);
-							 for(int k=0;k<set.getRowCount();k++){
-								 edit_user = set.getString(k, "user_name");
-								 userMap.put(set.getString(k, "user_id"), set.getString(k, "user_name"));
-								 break;
-							 }
+								edit_user = userMap.get(edit_user);
 							}
 						}
 						rmzvb.setEdit_user(edit_user);
@@ -371,6 +442,11 @@ public class RecFileQuery {
 			resultObj.put("resultList",list);
 			return resultObj;
 		}
+		  public static boolean isInteger(String str) {  
+		        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");  
+		        return pattern.matcher(str).matches();  
+		  }
+		  
 	public Object deleteAudioFile(ASObject object){
 		String dellist=(String)object.get("dellist");
 		String sql="update radio_stream_result_tab  set is_delete=1 where result_id in ("+dellist+")";
@@ -514,6 +590,7 @@ public class RecFileQuery {
 	public static void main(String[] args){
 //		XmlReader xml = new XmlReader();
 //		System.out.println(xml.getConfigItem("RunAt").getText());
+		System.out.println(RecFileQuery.isInteger("qwe123"));
 	}
 	
 	
