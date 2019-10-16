@@ -60,6 +60,8 @@ public class DataImportManager {
 		
 		// 2013-12-13
 		String path = SystemConfig.getVideo_location();
+		//如果是linux系统，这里的path固定
+		path="/root/video/";
 		String path2=path;
 		Calendar cal = Calendar.getInstance();// 使用日历类
 		try {
@@ -74,7 +76,7 @@ public class DataImportManager {
 		int day = cal.get(Calendar.DAY_OF_MONTH);// 得到天
 		// fileName=
 		// "d://video_location_down//"+"//"+year+"//"+month+"//"+day+"//"+fileName;
-		path = path  + year + "\\" + month + "\\" + day;
+		path = path  + year + "/" + month + "/" + day;
 
 		File pathfile = new File(path);
 		ArrayList<File> txtlist = new ArrayList<File>();

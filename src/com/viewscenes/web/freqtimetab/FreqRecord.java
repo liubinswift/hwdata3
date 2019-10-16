@@ -33,9 +33,10 @@ public class FreqRecord {
 		String website = (String) asobj.get("website");
 		String sql="";
 		//if(runplanType.equalsIgnoreCase("1")){
-			sql="select t.freq,t.broadcast_time,t.language,t.station_name,t.redisseminators,t.power,t.direction,t.service_area,t.ciraf,t.program_type,t.runplan_type_id " +
+			sql="select distinct t.freq,t.broadcast_time,t.language,t.station_name,t.redisseminators,t.power,t.direction,t.service_area,t.ciraf,t.program_type,t.runplan_type_id " +
 					"from zres_freq_time_tab t where 1=1  and to_date(t.valid_end_date,'yyyy-mm-dd hh24:mi:ss')>sysdate ";
-	//	}else{
+		 
+			//	}else{
 		//	sql="select t.freq,t.broadcast_time,t.language,t.redisseminators,t.power,t.direction,t.service_area,t.program_type " +
 	//		"from zres_freq_time_tab t where t.runplan_type_id=2 ";
 	//	}
