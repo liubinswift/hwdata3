@@ -74,7 +74,9 @@ public class FreqRecord {
 					obj.put("direction", gd.getString(i, "direction"));
 					obj.put("service_area", gd.getString(i, "service_area"));
 					obj.put("program_type", gd.getString(i, "program_type"));
-					list.add(obj);
+					if(!list.contains(obj)){
+					  list.add(obj);
+					}
 ;				}
 			}
 		} catch (Exception e) {
@@ -82,6 +84,23 @@ public class FreqRecord {
 		}
 		
 		return list;
+	}
+	public static void main(String args[]){
+		ArrayList list = new ArrayList();
+		ASObject obj = new ASObject();
+		obj.put("freq",543);
+		obj.put("power", 200);
+		obj.put("direction", 333);
+		list.add(obj);
+		ASObject obj2 = new ASObject();
+		obj2.put("freq",543);
+		obj2.put("power", 200);
+		obj2.put("direction", 333);
+		if(list.contains(obj2)){
+		System.out.println("已包含");	
+		
+		}
+		
 	}
 	/**
 	 * 导出Excel
@@ -92,7 +111,7 @@ public class FreqRecord {
 	public void doExcel(String msg,HttpServletRequest request,HttpServletResponse response){
 		Element root = StringTool.getXMLRoot(msg);
 		String website = root.getChildText("website");
-		String sql="select t.freq,t.broadcast_time,t.language,decode( t.station_name,'',t.redisseminators,t.station_name) as station_name,t.power,t.direction,t.service_area,t.ciraf,t.program_type " +
+		String sql="select distinct t.freq,t.broadcast_time,t.language,decode( t.station_name,'',t.redisseminators,t.station_name) as station_name,t.power,t.direction,t.service_area,t.ciraf,t.program_type,t.program_type,t.runplan_type_id " +
 		           "from zres_freq_time_tab t where 1=1 and to_date(t.valid_end_date,'yyyy-mm-dd hh24:mi:ss')>sysdate  ";
 		 if(website!=null&&!website.equalsIgnoreCase("")){
 				if(website.indexOf(",")>=0){

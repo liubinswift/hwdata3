@@ -1773,7 +1773,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                          " and mark.report_type=1 " +//效果录音
                          //	" and mark.is_delete=0 " +
                          //" and runplan.is_delete=0 " +
-                         " and runplan.valid_end_time>=to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss') "+
+                         //" and runplan.valid_end_time>=to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss') "+
                          " and runplan.parent_id = dis.runplan_id(+) " +
                          //" and dis.is_delete=0 " +
                          " and runplan.runplan_type_id='"+my_report_type+"'"+
@@ -2114,7 +2114,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                           " and mark.report_type=1 " +//效果录音
                           //	" and mark.is_delete=0 " +
                           //" and runplan.is_delete=0 " +
-                          " and runplan.valid_end_time>=to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss') "+
+                          //" and runplan.valid_end_time>=to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss') "+
                           " and runplan.runplan_type_id='"+my_report_type+"'"+
                           " and state.state = head.state" +
                           " and mark.start_datetime>=to_date('"+keyValue.getStartDate()+"','yyyy-mm-dd hh24:mi:ss')" +
@@ -2395,7 +2395,7 @@ public class TaskWithResult implements Callable<LinkedHashMap> {
                         " and mark.report_type=1 " +//效果录音
                         //" and record.is_delete=0 " +
                         //" and runplan.is_delete=0 " +
-                        " and runplan.valid_end_time>=to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss') "+
+                        //" and runplan.valid_end_time>=to_date('"+keyValue.getEndDate()+"','yyyy-mm-dd hh24:mi:ss') "+
 
                         " and runplan.runplan_type_id='"+my_report_type+"'"+
                         " and state.state = head.state" +

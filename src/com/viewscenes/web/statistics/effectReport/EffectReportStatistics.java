@@ -1431,7 +1431,7 @@ public class EffectReportStatistics {
 					ws.setColumnView(i+1, 15);
 					ASObject asobj = (ASObject)language_listens.get(i);
 					ws.addCell(new Label(i+1,startRow,asobj.get("language").toString(),wcfFHead));
-					ws.addCell(new Label(i+1,startRow+1,asobj.get("listens").toString()+"%",wcfF2));
+					ws.addCell(new Label(i+1,startRow+1,asobj.get("listens")+"%",wcfF2));
 				}
 			}
 
@@ -2248,7 +2248,7 @@ public class EffectReportStatistics {
 					ws.setColumnView(i+1, 15);
 					ASObject asobj = (ASObject)language_listens.get(i);
 					ws.addCell(new Label(i+1,startRow,asobj.get("language").toString(),wcfFHead));
-					ws.addCell(new Label(i+1,startRow+1,asobj.get("listens").toString()+"%",wcfF2));
+					ws.addCell(new Label(i+1,startRow+1,asobj.get("listens")+"%",wcfF2));
 				}
 			}
 
@@ -2401,6 +2401,36 @@ public class EffectReportStatistics {
 					ws.addCell(new Label(i+1,startRow,asobj.get("receive_name").toString(),wcfFHead));
 					ws.addCell(new Label(i+1,startRow+1,asobj.get("listen").toString()+"%",wcfF2));
 				}
+			}
+
+		}
+
+		//每种发射台的总可听率
+		if(station_listens!=null&&!station_listens.equalsIgnoreCase("")){
+			WritableSheet ws=wwb.getSheet("发射台总体播出效果统计");
+			if(ws!=null){
+				int startRow=ws.getRows()+2;
+				ws.addCell(new Label(0,startRow,"发射台",wcfFHead));
+				ws.addCell(new Label(0,startRow+1,"总可听率",wcfFHead));
+				String[] ss=station_listens.split(",");
+				if(ss.length>0){
+					ArrayList newlist = new ArrayList();
+
+					for(int i=0;i<ss.length;i++){
+						newlist.add(ss[i]);
+					}
+					Collections.sort(newlist, new Comparator(){
+						public int compare(Object o1,Object o2){
+							return new String((String) o1).compareTo(new String((String) o2));
+						}
+					});
+					for(int j=0;j<newlist.size();j++){
+						ws.setColumnView(j+1, 15);
+						ws.addCell(new Label(j+1,startRow,newlist.get(j).toString().split("_")[0],wcfFHead));
+						ws.addCell(new Label(j+1,startRow+1,newlist.get(j).toString().split("_")[3]+"%",wcfF2));
+					}
+			}
+
 			}
 
 		}
