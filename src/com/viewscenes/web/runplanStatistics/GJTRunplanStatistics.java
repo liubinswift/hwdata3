@@ -53,7 +53,6 @@ public class GJTRunplanStatistics {
 		String  reportDate=(String) obj.get("reportDate");
 		String  doBefore=(String) obj.get("doBefore");
 
-
 		double bc_total_freq = 0;
 		double bc_total_hour = 0;
 		double sc_total_freq = 0;
